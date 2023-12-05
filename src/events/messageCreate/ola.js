@@ -1,7 +1,6 @@
 const { Client, Message } = require("discord.js");
 const messageTreater = require("../../utils/messageTreater");
 
-
 /**
  * 
  * @param {Client} client 
@@ -9,6 +8,6 @@ const messageTreater = require("../../utils/messageTreater");
  */
 module.exports = (client, message) => {
   let msg = messageTreater(message);
-  if (msg === 'bom dia luna')
-    message.reply(`Bom dia **${message.author.displayName}**!`);
+  if (msg === 'oi luna' || msg === 'olá luna')
+    message.reply(`Olá, **${message.author.displayName}**!`);
 };
