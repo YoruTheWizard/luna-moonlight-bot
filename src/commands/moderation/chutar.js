@@ -55,9 +55,9 @@ module.exports = {
       return;
     }
 
-    // Ban the target user
+    // Kick the target user
     try {
-      await targetUser.ban({ reason });
+      await targetUser.kick({ reason });
       await interaction.editReply(`Usuário ${targetUser} foi chutado para fora do servidor.\nRazão: ${reason}`);
     } catch (err) {
       console.error(`There was an error while running the command 'kick': \n${err}`);
