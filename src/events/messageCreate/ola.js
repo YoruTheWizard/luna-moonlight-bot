@@ -1,5 +1,6 @@
 const { Client, Message } = require("discord.js");
 const messageTreater = require("../../utils/messageTreater");
+const wait = require('node:timers/promises').setTimeout;
 
 /**
  * 
@@ -8,6 +9,7 @@ const messageTreater = require("../../utils/messageTreater");
  */
 module.exports = (client, message) => {
   let msg = messageTreater(message);
-  if (msg === 'oi luna' || msg === 'olá luna')
-    message.reply(`Olá, **${message.author.displayName}**!`);
+  if (!(msg === 'oiluna' || msg === 'oláluna')) return;
+  message.channel.sendTyping();
+  setTimeout(() => { message.reply(`Olá, **${message.author.displayName}**!`); }, 1500);
 };

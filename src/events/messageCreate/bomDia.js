@@ -9,6 +9,9 @@ const messageTreater = require("../../utils/messageTreater");
  */
 module.exports = (client, message) => {
   let msg = messageTreater(message);
-  if (msg === 'bom dia luna')
+  if (msg !== 'bomdialuna') return;
+  message.channel.sendTyping();
+  setTimeout(() => {
     message.reply(`Bom dia **${message.author.displayName}**!`);
+  }, 1500);
 };
