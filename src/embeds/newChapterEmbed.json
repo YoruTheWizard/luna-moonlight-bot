@@ -1,0 +1,18 @@
+{
+  "color": "0x0099ff",
+  "author": {
+    "name": "{title}"
+  },
+  "title": "Novo capítulo de {title}!",
+  "description": "O capítulo **{chapter}** já está disponível! Venha ver!<{emoji}>",
+  "fields": [
+    {
+      "name": "Descrição",
+      "value": "{description}"
+    },
+    {
+      "name": "Link",
+      "value": "{link}"
+    }
+  ]
+}

@@ -2,6 +2,7 @@ const { testServer } = require('../../../config.json');
 const getApplicationCommands = require('../../utils/getApplicationCommands');
 const getLocalCommands = require('../../utils/getLocalCommands');
 const areCommandsDifferent = require('../../utils/areCommandsDifferent');
+const addTitlesToCommandChoices = require('../../utils/addTitlesToCommandChoices');
 
 module.exports = async client => {
   try {
@@ -9,7 +10,8 @@ module.exports = async client => {
     const applicationCommands = await getApplicationCommands(client, testServer);
 
     for (const command of localCommands) {
-      const { name, description, options } = command;
+      const { name, description } = command;
+      let { options } = command;
       const existingCommand = await applicationCommands.cache.find(
         cmd => cmd.name === name
       );
@@ -21,6 +23,7 @@ module.exports = async client => {
         }
 
         if (areCommandsDifferent(existingCommand, command)) {
+          if (name === 'novocapitulo') continue;
           await applicationCommands.edit(existingCommand.id, {
             description,
             options
@@ -31,6 +34,11 @@ module.exports = async client => {
         if (command.deleted) {
           console.log(`Skipping registring command "${name}" as it was set to delete.`);
           continue;
+        }
+
+        if (name === 'novocapitulo') {
+          options = addTitlesToCommandChoices(options);
+          console.log(`Added choices to "${name}" command.`);
         }
 
         await applicationCommands.create({

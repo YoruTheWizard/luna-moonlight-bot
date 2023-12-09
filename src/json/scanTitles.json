@@ -1,0 +1,99 @@
+[
+  {
+    "id": "otonaritenshi",
+    "name": "Otonari no Tenshi",
+    "longNameJP": "Otonari no Tenshi-sama wa Itsunomanika Dame Ningen ni Sareteita Ken",
+    "longNameEN": "The Angel Next Door Spoils Me Rotten",
+    "longNamePT": "O Anjo Vizinho Me Mima Demais",
+    "color": "0xfff700",
+    "emoji": ":otonari:1142940753912402040",
+    "fanRole": "1123265196367032370"
+  },
+  {
+    "id": "otonariasobi",
+    "name": "Otonari Asobi",
+    "longName": "Otonari x Asobi",
+    "color": "0x0100ff",
+    "emoji": ":Emma:1167819200597860454",
+    "fanRole": "1167809129289629726"
+  },
+  {
+    "id": "eightysix",
+    "name": "Eighty Six",
+    "longName": "86 - Eighty Six",
+    "longNamePT": "86 - Oitenta e Seis",
+    "color": "0x98c4ff",
+    "emoji": ":86:1153736391558185010",
+    "fanRole": "1154869067761582100"
+  },
+  {
+    "id": "bofuri",
+    "name": "Bofuri",
+    "longNameJP": "Itai no wa Iya na node Bougyoryoku ni Kyokufuri Shitai to Omoimasu",
+    "longNameEN": "Bofuri: I Don't Want to Get Hurt, so I'll Max Out My Defense",
+    "longNamePT": "",
+    "color": "0xb60c0c",
+    "emoji": ":bofuri:1156005449099911199",
+    "fanRole": "1154870204464119848"
+  },
+  {
+    "id": "roshidere",
+    "name": "RoshiDere",
+    "longNameJP": "Tokidoki Bosotto Roshiago de Dereru Tonari no Ārya-san",
+    "longNameEN": "Alya Sometimes Hides Her Feelings in Russian",
+    "longNamePT": "",
+    "color": "0x1d8fc0",
+    "emoji": ":roshidere:1153793943536943134",
+    "fanRole": "1154869473896054784"
+  },
+  {
+    "id": "seiken",
+    "name": "Seiken Gakuin",
+    "longNameJP": "Seiken Gakuin no Makentsukai",
+    "longNameEN": "The Demon Sword Master of Excalibur Academy",
+    "longNamePT": "",
+    "color": "0xffffff",
+    "emoji": ":Seiken:1162784750465990726",
+    "fanRole": "1162130064259940412"
+  },
+  {
+    "id": "tenken",
+    "name": "TenKen",
+    "longNameJP": "Tensei Shitara Ken Deshita",
+    "longNameEN": "Reincarnated as a Sword",
+    "longNamePT": "",
+    "color": "0xe67e22",
+    "emoji": ":TenKen:1163949982404051024",
+    "fanRole": "1163930894818619594"
+  },
+  {
+    "id": "tomozaki",
+    "name": "Tomozaki",
+    "longNameJP": "Jaku-Chara Tomozaki-kun",
+    "longNameEN": "Bottom Tier Character Tomozaki",
+    "longNamePT": "",
+    "color": "0x00b926",
+    "emoji": ":tomozaki:1168247597245407352",
+    "fanRole": "1168350246552731791"
+  },
+  {
+    "id": "yumemiru",
+    "name": "Yumemiru",
+    "longNameJP": "Yumemiru Danshi wa Genjitsushugisha",
+    "longNameEN": "The Dreaming Boy Is a Realist",
+    "longNamePT": "",
+    "color": "0xe74d3c",
+    "emoji": "",
+    "fanRole": "1182816434083070083"
+  },
+  {
+    "id": "bunnygirl",
+    "name": "Bunny Girl Senpai",
+    "longNameJP": "Seishun Buta Yarou wa Bunny Girl Senpai no Yume wo Minai",
+    "longNameEN": "Rascal Does Not Dream of Bunny Girl Senpai",
+    "longNamePT": "",
+    "color": "0x9c59b6",
+    "emoji": "",
+    "fanRole": "1174849038709952612"
+  }
+]
