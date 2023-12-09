@@ -8,14 +8,14 @@ const messageTreater = require("../../utils/messageTreater");
  */
 module.exports = (client, message) => {
   let msg = messageTreater(message);
-  if (msg !== 'bomdialuna') return;
+  if (msg !== 'boanoiteluna' && msg !== 'bahnocheluna') return;
   message.channel.sendTyping();
   setTimeout(() => {
     const hr = new Date().getHours();
-    if (hr > 4 && hr < 18) {
-      message.reply(`Bom dia **${message.author.displayName}**!`);
+    if (hr < 4 || hr > 18) {
+      message.reply(`Boa noite **${message.author.displayName}**!`);
       return;
     }
-    message.reply('*Mas já está de noite...*');
+    message.reply('*Mas ainda nem está de noite...*');
   }, 1500);
 };
