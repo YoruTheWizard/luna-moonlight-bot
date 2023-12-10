@@ -1,5 +1,5 @@
 const { Client, Interaction } = require('discord.js');
-const { testServer, devs } = require('../../../config.json');
+const { testServer, devs } = require('../../config.json');
 const getLocalCommands = require('../../utils/getLocalCommands');
 
 /**

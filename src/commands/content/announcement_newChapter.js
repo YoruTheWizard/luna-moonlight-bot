@@ -1,5 +1,5 @@
 const { ApplicationCommandOptionType, Client, Interaction } = require("discord.js");
-const { testServer } = require('../../../config.json');
+const { testServer } = require('../../config.json');
 const newChapterEmbed = require('../../embeds/newChapterEmbed.json');
 const scanTitles = require('../../json/scanTitles.json');
 

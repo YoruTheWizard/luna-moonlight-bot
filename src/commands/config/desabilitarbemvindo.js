@@ -1,5 +1,5 @@
 const { ApplicationCommandOptionType, PermissionFlagsBits, Client, Interaction } = require("discord.js");
-const { welcomeOn } = require('../../../config.json');
+const { welcomeOn } = require('../../config.json');
 
 module.exports = {
   devOnly: false,

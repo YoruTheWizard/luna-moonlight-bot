@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const filePath = path.resolve(__dirname, '..', '..', 'config.json');
+const filePath = path.resolve(__dirname, '..', 'config.json');
 const config = require(filePath);
 
 module.exports = async (server, channel) => {
