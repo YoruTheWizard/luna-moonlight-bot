@@ -130,6 +130,5 @@ dist
 .pnp.*
 
 # Misc
-commandTemplate.js
 config.json
-embed.js
+tests/
