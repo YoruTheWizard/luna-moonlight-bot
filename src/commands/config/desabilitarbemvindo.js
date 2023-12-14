@@ -19,7 +19,7 @@ module.exports = {
   callback: async (client, interaction) => {
     await interaction.deferReply();
     if (welcomeOn.filter().length === 0) {
-      await interaction.editReply('As mensagens de bem-vindo não estão habilitadas neste servidor!');
+      await interaction.editReply({ content: 'As mensagens de bem-vindo não estão habilitadas neste servidor!', ephemeral: true });
       return;
     }
 

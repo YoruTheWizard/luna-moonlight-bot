@@ -35,11 +35,11 @@ module.exports = {
 
     const targetUser = await interaction.guild.members.fetch(targetUserId);
     if (!targetUser) {
-      await interaction.editReply('Esse usuário não existe!');
+      await interaction.editReply({ content: 'Esse usuário não existe!', ephemeral: true });
       return;
     }
     if (targetUser.id === interaction.guild.ownerId) {
-      await interaction.editReply('Esse usuário não pode ser banido pois é o dono do servidor!');
+      await interaction.editReply({ content: 'Esse usuário não pode ser banido pois é o dono do servidor!', ephemeral: true });
       return;
     }
 
@@ -47,11 +47,11 @@ module.exports = {
     const requestUserRolePosition = interaction.member.roles.highest.position; // Highest role of the user running the command
     const botRolePosition = interaction.guild.members.me.roles.highest.position; // Highest role of the bot
     if (targetUserRolePosition >= requestUserRolePosition) {
-      await interaction.editReply('Você não pode banir esse usuário pois possui mesmo cargo ou um cargo maior que o seu!');
+      await interaction.editReply({ content: 'Você não pode banir esse usuário pois possui mesmo cargo ou um cargo maior que o seu!', ephemeral: true });
       return;
     }
     if (targetUserRolePosition >= botRolePosition) {
-      await interaction.editReply('Eu não posso banir esse usuário pois possui o mesmo cargo/um cargo maior que o meu!');
+      await interaction.editReply({ content: 'Eu não posso banir esse usuário pois possui o mesmo cargo/um cargo maior que o meu!', ephemeral: true });
       return;
     }
 

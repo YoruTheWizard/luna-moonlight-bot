@@ -45,25 +45,25 @@ module.exports = {
     await interaction.deferReply();
     const targetUser = await interaction.guild.members.fetch(mentionable);
     if (!targetUser) {
-      await interaction.editReply('Esse usuário não existe!');
+      await interaction.editReply({ content: 'Esse usuário não existe!', ephemeral: true });
       return;
     }
     if (targetUser.id === interaction.guild.ownerId) {
-      await interaction.editReply('Esse usuário não pode ser banido pois é o dono do servidor!');
+      await interaction.editReply({ content: 'Esse usuário não pode ser banido pois é o dono do servidor!', ephemeral: true });
       return;
     }
     if (targetUser.user.bot) {
-      await interaction.editReply('Não é possível castigar um bot!');
+      await interaction.editReply({ content: 'Não é possível castigar um bot!', ephemeral: true });
       return;
     }
 
     const msDuratrion = ms(duracao);
     if (isNaN(msDuratrion)) {
-      await interaction.editReply('Duração do castigo inválida!');
+      await interaction.editReply({ content: 'Duração do castigo inválida!', ephemeral: true });
       return;
     }
     if (msDuratrion < 5000 || msDuratrion > 2.419e9) {
-      await interaction.editReply('A duração do castigo deve estar entre 5 segundos e 28 dias!');
+      await interaction.editReply({ content: 'A duração do castigo deve estar entre 5 segundos e 28 dias!', ephemeral: true });
       return;
     }
 
@@ -71,11 +71,11 @@ module.exports = {
     const requestUserRolePosition = interaction.member.roles.highest.position; // Highest role of the user running the command
     const botRolePosition = interaction.guild.members.me.roles.highest.position; // Highest role of the bot
     if (targetUserRolePosition >= requestUserRolePosition) {
-      await interaction.editReply('Você não pode banir esse usuário pois possui mesmo cargo ou um cargo maior que o seu!');
+      await interaction.editReply({ content: 'Você não pode banir esse usuário pois possui mesmo cargo ou um cargo maior que o seu!', ephemeral: true });
       return;
     }
     if (targetUserRolePosition >= botRolePosition) {
-      await interaction.editReply('Eu não posso banir esse usuário pois possui mesmo cargo ou um cargo maior que o meu!');
+      await interaction.editReply({ content: 'Eu não posso banir esse usuário pois possui mesmo cargo ou um cargo maior que o meu!', ephemeral: true });
       return;
     }
 

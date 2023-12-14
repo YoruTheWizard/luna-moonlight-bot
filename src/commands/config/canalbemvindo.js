@@ -41,21 +41,22 @@ module.exports = {
       );
 
       if (channelRegistered.channelExists) {
-        await interaction.editReply(
-          'Esse canal já está configurado para mandar as mensagens!'
-        );
+        await interaction.editReply({
+          content: 'Esse canal já está configurado para mandar as mensagens!',
+          ephemeral: true
+        });
         return;
       }
 
       if (!channelRegistered.serverExists) {
         await interaction.editReply(
-          `Mensagens de bem-bindo habilitadas para este servidor.
+          `Mensagens de bem-vindo habilitadas para este servidor.
           Canal de mensagens de bem-vindo configurado para #${newChannel.name}.`
         );
       }
 
       await interaction.editReply(
-        `Canal de mensagens de bem-vindo editado para #${newChannel.name}.`
+        `Canal de mensagens de bem-vindo realocado para #${newChannel.name}.`
       );
     } catch (err) {
       console.error(`Error while running command 'canalbemvindo': \n${err}`);
