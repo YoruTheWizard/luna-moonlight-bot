@@ -1,0 +1,29 @@
+{
+  "color": "{titleColor}",
+  "author": {
+    "name": "{authorName}",
+    "icon_url": "{authorDisplayAvatarURL}"
+  },
+  "title": "Estamos recrutando!",
+  "description": "<@{authorId}> está solicitando membros para axuiliarem em **{titleName}**",
+  "fields": [
+    {
+      "name": "Cargo(s) requisitados",
+      "value": "{requestedRolesList}",
+      "inline": true
+    },
+    {
+      "name": "Requerimentos",
+      "value": "{requirementList}",
+      "inline": true
+    },
+    {
+      "name": "Mais informações",
+      "value": "{comment}"
+    },
+    {
+      "name": "Contato",
+      "value": "{contactList}"
+    }
+  ]
+}
