@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { Client, GuildMember } = require("discord.js");
 const path = require('path');
-const config = require(path.resolve(__dirname, '..', '..', '..', 'config.json'));
+const config = require(path.resolve(__dirname, '..', '..', 'config.json'));
 const pathToWelcome = path.resolve(__dirname, '..', '..', 'embeds', 'welcomeEmbed.json');
 const welcomeEmbed = require(pathToWelcome);
 
