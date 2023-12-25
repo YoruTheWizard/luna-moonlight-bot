@@ -7,6 +7,7 @@ const messageTreater = require("../../utils/messageTreater");
  * @param {Message} message 
  */
 module.exports = (client, message) => {
+  if (message.author.bot) return;
   let msg = message.content.toLowerCase();
   if (msg.includes('luna') && msg.includes('bom') && msg.includes('dia')) {
     message.channel.sendTyping();

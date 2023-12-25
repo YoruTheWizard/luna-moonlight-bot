@@ -6,6 +6,7 @@ const { Client, Message } = require("discord.js");
  * @param {Message} message 
  */
 module.exports = async (client, message) => {
+  if (message.author.bot) return;
   let msg = message.content.toLowerCase();
   if (msg.includes('luna') && msg.includes('quanto') && msg.includes('pesa')) {
     message.channel.sendTyping();

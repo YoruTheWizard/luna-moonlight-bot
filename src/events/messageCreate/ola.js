@@ -8,6 +8,7 @@ const wait = require('node:timers/promises').setTimeout;
  * @param {Message} message 
  */
 module.exports = (client, message) => {
+  if (message.author.bot) return;
   let msg = message.content.toLowerCase();
   if (msg.includes('luna') && (msg.includes('olá') || msg.includes('oi'))) {
     message.channel.sendTyping();
