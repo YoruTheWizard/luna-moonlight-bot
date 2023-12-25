@@ -15,8 +15,7 @@ module.exports = {
    */
   callback: async (client, interaction) => {
     const bloopers = require('../../json/scanBloopers.json');
-    await interaction.deferReply();
     const rand = parseInt(Math.random() * bloopers.length);
-    interaction.editReply(bloopers[rand]);
+    interaction.reply(bloopers[rand]);
   }
 };

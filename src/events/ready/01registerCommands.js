@@ -23,7 +23,7 @@ module.exports = async client => {
         }
 
         if (areCommandsDifferent(existingCommand, command)) {
-          if (name === 'novocapitulo' || name === 'recrutamento') continue;
+          if (name === 'novolancamento' || name === 'recrutamento') continue;
           await applicationCommands.edit(existingCommand.id, {
             description,
             options
@@ -36,7 +36,7 @@ module.exports = async client => {
           continue;
         }
 
-        if (name === 'novocapitulo' || name === 'recrutamento') {
+        if (name === 'novolancamento' || name === 'recrutamento') {
           options = addTitlesToCommandChoices(options);
           console.log(`Added choices to "${name}" command.`);
         }

@@ -14,7 +14,6 @@ const client = new Client({
     parse: ['roles', 'users', 'everyone'],
     repliedUser: true
   },
-  disableEveryone: false
 });
 
 eventHandler(client);

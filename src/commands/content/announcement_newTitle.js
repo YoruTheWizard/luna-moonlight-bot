@@ -61,22 +61,44 @@ module.exports = {
       comment = (interaction.options.get('comantario')?.value
         || 'Sem comentário');
 
-    await interaction.deferReply();
-
     try {
-      const filePath = path.join(__dirname, '..', '..', 'embeds', 'newTitleEmbed.json');
-      const newTitle = require(filePath);
+      // const filePath = path.join(__dirname, '..', '..', 'embeds', 'newTitleEmbed.json');
+      // const newTitle = require(filePath);
+      const newTitle = new EmbedBuilder()
+        .setColor('Random')
+        .setAuthor({
+          name: interaction.member.displayName,
+          iconURL: interaction.member.displayAvatarURL()
+        })
+        .setTitle(`Nova obra chegando na Moonlight!`)
+        .setDescription(`Nome: ${titleName}`)
+        .addFields(
+          {
+            name: 'Sinopse',
+            value: sinopsys
+          },
+          {
+            name: 'Comentário',
+            value: comment
+          },
+          {
+            name: 'Links',
+            value: titleURL
+          }
+        )
+        .setImage({ url: titleImageURL });
 
-      newTitle.author.name = interaction.member.displayName;
-      newTitle.author.icon_url = interaction.member.displayAvatarURL();
-      newTitle.title = newTitle.title.replace('{guildName}', interaction.guild.name);
-      newTitle.description = newTitle.description.replace('{titleName}', titleName);
-      newTitle.fields[0].value = sinopsys;
-      newTitle.fields[1].value = comment;
-      newTitle.fields[2].value = titleURL;
-      newTitle.image.url = titleImageURL;
+      // newTitle.author.name = interaction.member.displayName;
+      // newTitle.author.icon_url = interaction.member.displayAvatarURL();
+      // newTitle.title = newTitle.title.replace('{guildName}', interaction.guild.name);
+      // newTitle.description = newTitle.description.replace('{titleName}', titleName);
+      // newTitle.fields[0].value = sinopsys;
+      // newTitle.fields[1].value = comment;
+      // newTitle.fields[2].value = titleURL;
+      // newTitle.image.url = titleImageURL;
 
-      interaction.editReply({ content: '@everyone', embeds: [newTitle] });
+      interaction.channel.send({ content: '@everyone', embeds: [newTitle] });
+      interaction.reply({ content: 'Mensagem enviada!', ephemeral: true });
     } catch (err) {
       console.error(`Error while running command 'novocapitulo':\n${err}`);
     }

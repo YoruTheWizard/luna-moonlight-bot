@@ -26,16 +26,24 @@ module.exports = {
     const person = await interaction.guild.members.fetch(personId);
 
     await interaction.deferReply();
-    let rand = parseInt(Math.random() * (adj.length + 1));
-    if (person.user.tag === 'argamerbr1300'
-      || person.user.tag === '_delvalle'
-      || person.user.tag === 'jfee_')
-      while (rand === adj.length + 1 || adj[rand].bad)
+
+    if (personId === interaction.guild.members.me.id) {
+      interaction.editReply('Eu gosto de mim mesma');
+      return;
+    }
+
+    let rand = parseInt(Math.random() * adj.length);
+
+    const { parents } = require('../../config.json');
+    if (parents.includes(personId))
+      while (adj[rand].adj === 'nada' || adj[rand].bad)
         rand = parseInt(Math.random() * (adj.length));
 
-    let reply;
-    if (rand === adj.length + 1) reply = `Não tenho muito a dizer sobre ${person.displayName}`;
-    else reply = `Eu acho que ${person.displayName} é ${adj[rand].adj}`;
-    interaction.editReply(reply);
+    if (adj[rand].adj === 'nada') {
+      interaction.editReply(`Não tenho muito a dizer sobre ${person.displayName}`);
+      return;
+    }
+
+    interaction.editReply(`Eu acho que ${person.displayName} é ${adj[rand].adj}`);
   }
 };

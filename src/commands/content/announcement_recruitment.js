@@ -1,7 +1,8 @@
-const { ApplicationCommandOptionType, Client, Interaction } = require('discord.js');
+const { ApplicationCommandOptionType, Client, Interaction, EmbedBuilder } = require('discord.js');
 const { testServer } = require('../../config.json');
 
 module.exports = {
+  deleted: false,
   name: 'recrutamento',
   description: 'Manda um anúncio de recrutamento para todos no servidor',
   options: [
@@ -64,23 +65,50 @@ module.exports = {
         break;
       }
 
-    await interaction.deferReply();
-
     try {
-      const recruitment = require('../../embeds/recruitmentEmbed.json');
+      // const recruitment = require('../../embeds/recruitmentEmbed.json');
+      const recruitment = new EmbedBuilder()
+        .setColor(titleObj.color)
+        .setAuthor({
+          name: interaction.member.displayName,
+          iconURL: interaction.member.displayAvatarURL()
+        })
+        .setTitle('Estamos recrutando!')
+        .setDescription(`<@${interaction.member.id}> está solicitando membros para axuiliarem em **${titleObj.name}**`)
+        .addFields(
+          {
+            name: 'Cargo(s) requeridos',
+            value: '- '.concat(roles.join('\n- ')),
+            inline: true
+          },
+          {
+            name: 'Requisitos',
+            value: '- '.concat(requirements.join('\n- ')),
+            inline: true
+          },
+          {
+            name: 'Mais informações',
+            value: comment
+          },
+          {
+            name: 'Contato',
+            value: contact
+          }
+        );
 
-      recruitment.color = parseInt(titleObj.color);
-      recruitment.author.name = interaction.member.displayName;
-      recruitment.author.icon_url = interaction.member.displayAvatarURL();
-      recruitment.description = recruitment.description
-        .replace('{authorId}', interaction.member.id)
-        .replace('{titleName}', titleObj.name);
-      recruitment.fields[0].value = '- '.concat(roles.join('\n- '));
-      recruitment.fields[1].value = '- '.concat(requirements.join('\n- '));
-      recruitment.fields[2].value = comment;
-      recruitment.fields[3].value = contact;
+      // recruitment.color = parseInt(titleObj.color);
+      // recruitment.author.name = interaction.member.displayName;
+      // recruitment.author.icon_url = interaction.member.displayAvatarURL();
+      // recruitment.description = recruitment.description
+      //   .replace('{authorId}', interaction.member.id)
+      //   .replace('{titleName}', titleObj.name);
+      // recruitment.fields[0].value = '- '.concat(roles.join('\n- '));
+      // recruitment.fields[1].value = '- '.concat(requirements.join('\n- '));
+      // recruitment.fields[2].value = comment;
+      // recruitment.fields[3].value = contact;
 
-      interaction.editReply({ content: '@everyone', embeds: [recruitment] });
+      interaction.channel.send({ content: '@everyone', embeds: [recruitment] });
+      interaction.reply({ content: 'Mensagem enviada!', ephemeral: true });
     } catch (err) {
       console.error(`Error while running command 'recrutamento':\n${err}`);
     }
