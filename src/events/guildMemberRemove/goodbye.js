@@ -31,8 +31,8 @@ module.exports = async (client, member) => {
     const goodbyeEmbed = new EmbedBuilder()
       .setColor(15844367)
       .setTitle('Tchau...')
-      .setDescription(`${member.user.name} saiu do ${guild.name}... Espero que algum dia volte...`)
-      .setImage({ url: 'https://cdn.discordapp.com/attachments/1150896257372532756/1162764876796657705/mahiru-shiina_1.gif?ex=653d202d&is=652aab2d&hm=1dc2b72a890d1bb160cac7b5aa42fa14e85cd5ff9cf546a5112e5cee20ad638d&' });
+      .setDescription(`${member.user.username} saiu do ${guild.name}... Espero que algum dia volte...`)
+      .setImage('https://cdn.discordapp.com/attachments/1150896257372532756/1162764876796657705/mahiru-shiina_1.gif?ex=653d202d&is=652aab2d&hm=1dc2b72a890d1bb160cac7b5aa42fa14e85cd5ff9cf546a5112e5cee20ad638d&');
 
     welcomeChannel.send({ content: `<@${member.id}>`, embeds: [goodbyeEmbed] });
   } catch (err) {

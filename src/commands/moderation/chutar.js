@@ -2,7 +2,7 @@ const { ApplicationCommandOptionType, PermissionFlagsBits, Client } = require("d
 
 module.exports = {
   name: 'chutar',
-  description: 'Chuta um membro para fora do servidor',
+  description: '[ADM] Chuta um membro para fora do servidor',
   devOnly: false,
   testOnly: false,
   options: [

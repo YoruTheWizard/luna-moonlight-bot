@@ -3,7 +3,7 @@ const ms = require('ms');
 
 module.exports = {
   name: 'castigo',
-  description: 'Silencia um membro por um tempo determinado',
+  description: '[ADM] Silencia um membro por um tempo determinado',
   devOnly: false,
   testOnly: false,
   deleted: false,

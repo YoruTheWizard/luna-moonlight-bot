@@ -1,10 +1,11 @@
 const { ApplicationCommandOptionType, Client, Interaction, EmbedBuilder } = require('discord.js');
 const { testServer } = require('../../config.json');
+const listTreater = require('../../utils/listTreater');
 
 module.exports = {
   deleted: false,
   name: 'recrutamento',
-  description: 'Manda um anúncio de recrutamento para todos no servidor',
+  description: '[Staff] Manda um anúncio de recrutamento para todos no servidor',
   options: [
     {
       name: 'obra',
@@ -50,8 +51,8 @@ module.exports = {
       });
 
     const titleName = interaction.options.get('obra').value,
-      roles = interaction.options.get('cargos').value.split(', '),
-      requirements = interaction.options.get('requisitos').value.split(', '),
+      roles = listTreater(interaction.options.get('cargos').value),
+      requirements = listTreater(interaction.options.get('requisitos').value),
       comment = (interaction.options.get('comentario')?.value
         || 'Nenhuma informação adicional providenciada.'),
       contact = (interaction.options.get('contato')?.value
@@ -66,7 +67,6 @@ module.exports = {
       }
 
     try {
-      // const recruitment = require('../../embeds/recruitmentEmbed.json');
       const recruitment = new EmbedBuilder()
         .setColor(titleObj.color)
         .setAuthor({
@@ -78,12 +78,12 @@ module.exports = {
         .addFields(
           {
             name: 'Cargo(s) requeridos',
-            value: '- '.concat(roles.join('\n- ')),
+            value: roles,
             inline: true
           },
           {
             name: 'Requisitos',
-            value: '- '.concat(requirements.join('\n- ')),
+            value: requirements,
             inline: true
           },
           {
@@ -95,17 +95,6 @@ module.exports = {
             value: contact
           }
         );
-
-      // recruitment.color = parseInt(titleObj.color);
-      // recruitment.author.name = interaction.member.displayName;
-      // recruitment.author.icon_url = interaction.member.displayAvatarURL();
-      // recruitment.description = recruitment.description
-      //   .replace('{authorId}', interaction.member.id)
-      //   .replace('{titleName}', titleObj.name);
-      // recruitment.fields[0].value = '- '.concat(roles.join('\n- '));
-      // recruitment.fields[1].value = '- '.concat(requirements.join('\n- '));
-      // recruitment.fields[2].value = comment;
-      // recruitment.fields[3].value = contact;
 
       interaction.channel.send({ content: '@everyone', embeds: [recruitment] });
       interaction.reply({ content: 'Mensagem enviada!', ephemeral: true });

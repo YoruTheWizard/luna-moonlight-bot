@@ -7,7 +7,7 @@ module.exports = {
   deleted: false,
 
   name: 'desabilitarbemvindo',
-  description: 'Desabilita mensagens de bem-vindo e adeus no servidor',
+  description: '[ADM] Desabilita mensagens de bem-vindo e adeus no servidor',
   permissionsRequired: PermissionFlagsBits.Administrator,
   botPermissions: PermissionFlagsBits.Administrator,
 

@@ -7,7 +7,7 @@ module.exports = {
   deleted: false,
 
   name: 'canalbemvindo',
-  description: 'Configura um canal para serem enviadas as mensagens de bem-vindo e adeus',
+  description: '[ADM] Configura um canal para serem enviadas as mensagens de bem-vindo e adeus',
   options: [
     {
       name: 'canal',

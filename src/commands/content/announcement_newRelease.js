@@ -9,7 +9,7 @@ module.exports = {
   deleted: false,
 
   name: 'novolancamento',
-  description: 'Manda um anúncio para todos no servidor sobre um novo capítulo.',
+  description: '[Staff] Manda um anúncio para todos no servidor sobre um novo capítulo.',
   options: [
     {
       name: 'obra',
@@ -78,30 +78,23 @@ module.exports = {
     for (let title of scanTitles)
       if (title.id === titleName) titleObj = title;
 
-    const newChapterEmbed = new EmbedBuilder()
-      .setColor(titleObj.color)
-      .setAuthor({ name: titleObj.longNameJP || titleObj.longName })
-      .setTitle(`Novo ${type} de ${titleObj.name}!`)
-      .setDescription(
-        `O ${type} **${number}** já está disponível! Venha ver!<${titleObj.emoji || ':tada:'}>`
-      );
+    try {
+      const newChapterEmbed = new EmbedBuilder()
+        .setColor(titleObj.color)
+        .setAuthor({ name: titleObj.longNameJP || titleObj.longName })
+        .setTitle(`Novo ${type} de ${titleObj.name}!`)
+        .setDescription(
+          `O ${type} **${number}** já está disponível! Venha ver!<${titleObj.emoji || ':tada:'}>`
+        );
 
-    if (titleDescription)
-      newChapterEmbed.addFields({ name: 'Descrição', value: titleDescription });
+      if (titleDescription)
+        newChapterEmbed.addFields({ name: 'Descrição', value: titleDescription });
+      newChapterEmbed.addFields({ name: 'Links', value: links });
 
-    newChapterEmbed.addFields({ name: 'Links', value: links });
-
-    // newChapterEmbed.color = parseInt(titleObj.color);
-    // newChapterEmbed.author.name = newChapterEmbed.author.name
-    //   .replace('{title}', titleObj.longNameJP || titleObj.longName);
-    // newChapterEmbed.title = newChapterEmbed.title.replace('{title}', titleObj.name);
-    // newChapterEmbed.description = newChapterEmbed.description
-    //   .replace('{chapter}', titleChapter)
-    //   .replace('{emoji}', titleObj.emoji ? titleObj.emoji : ':tada:');
-    // if (titleDescription)
-    //   newChapterEmbed.fields[0].value = newChapterEmbed.fields[0].value.replace('{description}', titleDescription);
-    // newChapterEmbed.fields[1].value = titleURL;
-
-    await interaction.channel.send({ content: `<@&${titleObj.fanRole}>`, embeds: [newChapterEmbed] });
+      await interaction.channel.send({ content: `<@&${titleObj.fanRole}>`, embeds: [newChapterEmbed] });
+      interaction.reply({ content: 'Mensagem enviada!', ephemeral: true });
+    } catch (err) {
+      console.error(`Error while running command 'novolancamento': \n${err}`);
+    }
   }
 };

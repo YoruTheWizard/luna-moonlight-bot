@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { ApplicationCommandOptionType, Client, Interaction, EmbedBuilder } = require('discord.js');
 const { testServer } = require('../../config.json');
+const listTreater = require('../../utils/listTreater');
 
 module.exports = {
   devOnly: false,
@@ -9,7 +10,7 @@ module.exports = {
   deleted: false,
 
   name: 'novaobra',
-  description: 'Manda um anúncio para todos no servidor sobre uma nova obra',
+  description: '[Staff] Manda um anúncio para todos no servidor sobre uma nova obra',
   options: [
     {
       name: 'nome',
@@ -18,14 +19,14 @@ module.exports = {
       required: true,
     },
     {
-      name: 'link',
-      description: 'Link para ler a obra',
+      name: 'links',
+      description: 'Links para ler a obra',
       type: ApplicationCommandOptionType.String,
       required: true
     },
     {
-      name: 'link-imagem',
-      description: 'Link para uma imagem da obra',
+      name: 'url-imagem',
+      description: 'URL de uma imagem da obra',
       type: ApplicationCommandOptionType.String,
       required: true
     },
@@ -54,12 +55,14 @@ module.exports = {
       });
 
     const titleName = interaction.options.get('nome').value,
-      titleURL = interaction.options.get('link').value,
-      titleImageURL = interaction.options.get('link-imagem').value,
+      titleURL = interaction.options.get('links').value,
+      titleImageURL = interaction.options.get('url-imagem').value,
       sinopsys = (interaction.options.get('sinopse')?.value
         || 'Nenhuma sinopse providenciada'),
-      comment = (interaction.options.get('comantario')?.value
+      comment = (interaction.options.get('comentario')?.value
         || 'Sem comentário');
+
+    const links = listTreater(titleURL);
 
     try {
       // const filePath = path.join(__dirname, '..', '..', 'embeds', 'newTitleEmbed.json');
@@ -83,10 +86,10 @@ module.exports = {
           },
           {
             name: 'Links',
-            value: titleURL
+            value: links
           }
         )
-        .setImage({ url: titleImageURL });
+        .setImage(titleImageURL);
 
       // newTitle.author.name = interaction.member.displayName;
       // newTitle.author.icon_url = interaction.member.displayAvatarURL();

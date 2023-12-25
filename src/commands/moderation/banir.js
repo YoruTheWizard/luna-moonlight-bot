@@ -2,7 +2,7 @@ const { ApplicationCommandOptionType, PermissionFlagsBits, Client } = require("d
 
 module.exports = {
   name: 'banir',
-  description: 'Bane um membro do servidor',
+  description: '[ADM] Bane um membro do servidor',
   devOnly: false,
   testOnly: false,
   options: [
