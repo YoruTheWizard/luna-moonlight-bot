@@ -15,7 +15,7 @@ module.exports = (client, message) => {
   ) {
     setTimeout(() => { message.channel.sendTyping(); }, 1000);
     setTimeout(async () => {
-      const hr = new Date().getHours() - 5;
+      const hr = new Date().getHours() + 5;
       if (hr < 4 || hr > 18) {
         const member = (await message.guild.members.fetch(message.author.id)).displayName;
         message.reply(`Boa noite **${member}**!`);
