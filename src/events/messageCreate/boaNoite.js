@@ -13,7 +13,7 @@ module.exports = (client, message) => {
     && (msg.includes('boa') || msg.includes('bah'))
     && (msg.includes('noite') || msg.includes('noche'))
   ) {
-    message.channel.sendTyping();
+    setTimeout(() => { message.channel.sendTyping(); }, 1000);
     setTimeout(async () => {
       const hr = new Date().getHours();
       if (hr < 4 || hr > 18) {

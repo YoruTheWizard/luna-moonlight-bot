@@ -10,8 +10,9 @@ const wait = require('node:timers/promises').setTimeout;
 module.exports = (client, message) => {
   if (message.author.bot) return;
   let msg = message.content.toLowerCase();
-  if (msg.includes('luna') && (msg.includes('olá') || msg.includes('oi'))) {
-    message.channel.sendTyping();
+  if (msg.includes('luna') && (msg.includes('olá')
+    || (msg.includes('oi') && !msg.includes('noite')))) {
+    setTimeout(() => { message.channel.sendTyping(); }, 1000);
     setTimeout(async () => {
       const member = (await message.guild.members.fetch(message.author.id)).displayName;
       message.reply(`Olá, **${member}**!`);
