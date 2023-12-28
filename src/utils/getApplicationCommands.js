@@ -1,3 +1,11 @@
+const { Client } = require('discord.js');
+
+/**
+ * 
+ * @param {Client} client 
+ * @param {string | undefined} guildId 
+ * @returns GuildApplicationCommandManager | ApplicationCommandManager<ApplicationCommand<{ guild: GuildResolvable; }>, { guild: GuildResolvable; }, null>
+ */
 module.exports = async (client, guildId) => {
   let applicationCommands;
   if (guildId) {
