@@ -133,3 +133,4 @@ dist
 config.json
 tests/
 json/
+embeds/
