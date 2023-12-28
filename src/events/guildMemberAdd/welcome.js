@@ -1,9 +1,6 @@
-const fs = require('fs');
-const { Client, GuildMember } = require("discord.js");
+const { Client, GuildMember, EmbedBuilder } = require("discord.js");
 const path = require('path');
 const config = require(path.resolve(__dirname, '..', '..', 'config.json'));
-const pathToWelcome = path.resolve(__dirname, '..', '..', 'embeds', 'welcomeEmbed.json');
-const welcomeEmbed = require(pathToWelcome);
 
 /**
  * 
@@ -17,28 +14,22 @@ module.exports = async (client, member) => {
     let welcomeChannelId;
     for (let obj of config.welcomeOn)
       if (obj.server === member.guild.id) welcomeChannelId = obj.channel;
-    // JSON.parse(fs.readFileSync(filePath, { encoding: 'utf-8' }))
-    //   .welcomeOn.forEach(e => {
-    //     if (e.server === member.guild.id) {
-    //       welcomeChannelId = e.channel;
-    //     }
-    //   });
     if (!welcomeChannelId) return;
 
     const welcomeChannel = await member.guild.channels.fetch(welcomeChannelId),
       guild = member.guild,
-      channel1 = guild.id === testServer ? '1181345640362553417' : guild.rulesChannelId,
-      channel2 = guild.id === testServer ? '1181345640362553417' : '1174335547716673666',
-      channel3 = guild.id === testServer ? '1181345640362553417' : '1123194351552565332';
+      channel1 = guild.id === config.testServer ? '1181345640362553417' : guild.rulesChannelId,
+      channel2 = guild.id === config.testServer ? '1181345640362553417' : '1174335547716673666',
+      channel3 = guild.id === config.testServer ? '1181345640362553417' : '1123194351552565332';
 
     const welcomeEmbed = new EmbedBuilder()
-      .setColor(15844367)
+      .setColor(0x706897)
       .setAuthor({
         name: member.displayName,
         iconURL: member.displayAvatarURL()
       })
       .setTitle(`Seja bem-vido(a) ao ${guild.name}`)
-      .setDescription(`Olá <@${member.id}>, espero que você se divirta na Moonlight Valley!<:mahiru_estrelando:1136142729219416086>`)
+      .setDescription(`Olá <@${member.id}>, espero que você se divirta na Moonlight Valley!<:Luna_Estrelando:1189342432580608141>`)
       .addFields(
         {
           name: `<#${channel1}>`,
