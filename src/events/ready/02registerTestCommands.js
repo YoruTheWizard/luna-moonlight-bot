@@ -1,4 +1,4 @@
-const { mainServer } = require('../../config.json');
+const { testServer } = require('../../config.json');
 const getApplicationCommands = require('../../utils/getApplicationCommands');
 const getLocalCommands = require('../../utils/getLocalCommands');
 const areCommandsDifferent = require('../../utils/areCommandsDifferent');
@@ -7,10 +7,9 @@ const addTitlesToCommandChoices = require('../../utils/addTitlesToCommandChoices
 module.exports = async client => {
   try {
     const localCommands = getLocalCommands();
-    const applicationCommands = await getApplicationCommands(client, mainServer);
+    const applicationCommands = await getApplicationCommands(client, testServer);
 
     for (const command of localCommands) {
-      if (command.testOnly) continue;
       const { name, description } = command;
       let { options } = command;
       const existingCommand = await applicationCommands.cache.find(
