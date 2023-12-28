@@ -34,8 +34,8 @@ module.exports = {
 
     let rand = parseInt(Math.random() * adj.length);
 
-    const { parents } = require('../../config.json');
-    if (parents.includes(personId))
+    const { family } = require('../../config.json');
+    if (family.includes(personId))
       while (adj[rand].adj === 'nada' || adj[rand].bad)
         rand = parseInt(Math.random() * (adj.length));
 

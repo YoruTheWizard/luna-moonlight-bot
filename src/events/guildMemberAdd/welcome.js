@@ -26,8 +26,7 @@ module.exports = async (client, member) => {
     if (!welcomeChannelId) return;
 
     const welcomeChannel = await member.guild.channels.fetch(welcomeChannelId),
-      guild = interaction.guild,
-      author = interaction.member,
+      guild = member.guild,
       channel1 = guild.id === testServer ? '1181345640362553417' : guild.rulesChannelId,
       channel2 = guild.id === testServer ? '1181345640362553417' : '1174335547716673666',
       channel3 = guild.id === testServer ? '1181345640362553417' : '1123194351552565332';
@@ -57,7 +56,7 @@ module.exports = async (client, member) => {
           // inline: true
         }
       )
-      .setImage('https://cdn.discordapp.com/attachments/1150896257372532756/1162759006687854632/mahiru-shiina.gif?ex=653d1ab6&is=652aa5b6&hm=534c5e57e7ff96cb8b2708a45b16de520c9d6ff8d5bfc5fd774164b1bde87997&')
+      .setImage('https://cdn.discordapp.com/attachments/1189268273028665404/1189280934026031144/Bem_Vindo_a_Moonlight_Valley.jpg?ex=659d972e&is=658b222e&hm=435cde1f5b80c1f97cedb0c5995f20a2bcb8a0fa9af85cdc08b4183dd8550c77&')
       .setThumbnail(guild.iconURL())
       .setFooter({ text: `Membro No. ${guild.memberCount}` });
 

@@ -1,5 +1,5 @@
 const { Client, Message } = require("discord.js");
-const messageTreater = require("../../utils/messageTreater");
+const { family } = require("../../config.json");
 
 /**
  * 
@@ -16,12 +16,14 @@ module.exports = (client, message) => {
     setTimeout(() => { message.channel.sendTyping(); }, 1000);
     setTimeout(async () => {
       const hr = new Date().getHours() + 5;
+      let response;
       if (hr < 4 || hr > 18) {
-        const member = (await message.guild.members.fetch(message.author.id)).displayName;
-        message.reply(`Boa noite **${member}**!`);
-        return;
-      }
-      message.reply('*Mas ainda nem está de noite...*');
+        const member = await message.guild.members.fetch(message.author.id);
+        if (member.id === family[0]) response = 'Boa noite, **Pai**!';
+        else if (family.includes(member.id)) response = `Boa noite, tio **${member.displayName}**`;
+        else response = `Boa noite, **${member.displayName}**!`;
+      } else response = '*Mas ainda nem está de noite...*';
+      message.reply(response);
     }, 1500);
   }
 };
