@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { ApplicationCommandOptionType, Client, Interaction, EmbedBuilder } = require('discord.js');
-const { testServer } = require('../../config.json');
+const { testServer, staff } = require('../../config.json');
 const listTreater = require('../../utils/listTreater');
 
 module.exports = {
@@ -49,7 +49,7 @@ module.exports = {
    */
   callback: async (client, interaction) => {
     if (interaction.guild.id !== testServer)
-      if (!interaction.member.roles.cache.some(role => role.id === '1123264880800182352')) interaction.reply({
+      if (!interaction.member.roles.cache.some(role => role.id === staff)) interaction.reply({
         content: 'Apenas membros da staff podem usar este comando!',
         ephemeral: true
       });

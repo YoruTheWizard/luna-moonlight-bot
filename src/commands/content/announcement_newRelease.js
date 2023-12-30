@@ -1,6 +1,5 @@
 const { ApplicationCommandOptionType, Client, Interaction, EmbedBuilder } = require("discord.js");
-const { testServer } = require('../../config.json');
-const scanTitles = require('../../json/scanTitles.json');
+const { testServer, staff } = require('../../config.json');
 // const newChapterEmbed = require('../../embeds/newChapterEmbed.json');
 
 module.exports = {
@@ -62,7 +61,7 @@ module.exports = {
    */
   callback: async (client, interaction) => {
     if (interaction.guild.id !== testServer)
-      if (!interaction.member.roles.cache.some(role => role.id === '1123264880800182352')) interaction.reply({
+      if (!interaction.member.roles.cache.some(role => role.id === staff)) interaction.reply({
         content: 'Apenas membros da staff podem usar este comando!',
         ephemeral: true
       });
@@ -74,6 +73,7 @@ module.exports = {
 
     let links = '- '.concat(titleLinks.join('\n- '));
 
+    const scanTitles = require('../../json/scanTitles.json');
     let titleObj;
     for (let title of scanTitles)
       if (title.id === titleName) titleObj = title;
