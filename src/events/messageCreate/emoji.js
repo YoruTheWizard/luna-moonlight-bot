@@ -8,7 +8,8 @@ const { family } = require('../../config.json');
  * @param {Message} message 
  */
 module.exports = (client, message) => {
-  const msg = message.content.toLowerCase().replace(/[*_#]/g, '');
+  if (message.author.bot) return;
+  const msg = message.content.toLowerCase().replace(/[^a-z]/g, '');
   if (msg === 'luna' || msg === 'luninha') {
     setTimeout(() => { message.channel.sendTyping(); }, 1000);
     setTimeout(() => { message.reply(emojis.luna); }, 1100);
