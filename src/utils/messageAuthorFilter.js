@@ -9,10 +9,14 @@ const { family } = require('../config.json');
  */
 module.exports = (preText, member, postText = '!') => {
   let person;
-  if (member.id === family[0]) person = 'pai';
-  else if (member.id === family[1]) person = 'tio Del';
-  else if (member.id === family[2]) person = 'tio Jeff';
-  else person = member.displayName;
+  if (family.includes(member.id)) {
+    if (preText === 'Olá') preText = 'Oi';
+    switch (member.id) {
+      case family[0]: person = 'pai'; break;
+      case family[1]: person = 'tio Del'; break;
+      case family[2]: person = 'tio Jeff';
+    }
+  } else person = member.displayName;
 
   return `${preText}, **${person}**${postText}`;
 };
