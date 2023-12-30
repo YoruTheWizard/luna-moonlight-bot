@@ -1,6 +1,7 @@
 const { Client, GuildMember, EmbedBuilder } = require("discord.js");
 const path = require('path');
 const config = require(path.resolve(__dirname, '..', '..', 'config.json'));
+const emojis = require(path.resolve(__dirname, '..', '..', 'json', 'emojis.json'));
 
 /**
  * 
@@ -29,7 +30,7 @@ module.exports = async (client, member) => {
         iconURL: member.displayAvatarURL()
       })
       .setTitle(`Seja bem-vido(a) ao ${guild.name}`)
-      .setDescription(`Olá <@${member.id}>, espero que você se divirta na Moonlight Valley!<:Luna_Estrelando:1189342432580608141>`)
+      .setDescription(`Olá <@${member.id}>, espero que você se divirta na Moonlight Valley! ${emojis.stars}`)
       .addFields(
         {
           name: `<#${channel1}>`,

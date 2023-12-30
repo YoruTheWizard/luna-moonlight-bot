@@ -1,4 +1,5 @@
 const { Client, Message } = require("discord.js");
+const emojis = require('../../json/emojis.json');
 
 /**
  * 
@@ -11,7 +12,7 @@ module.exports = async (client, message) => {
   if (msg.includes('luna') && msg.includes('quanto') && msg.includes('pesa')) {
     setTimeout(() => { message.channel.sendTyping(); }, 1000);
     setTimeout(() => {
-      message.reply('<:luna_hmph:1187194403442397224> Não é muito delicado perguntar o peso de uma garota!\nMas, já que insiste, eu peso cerca de *16MB* <:luna_ara:1187194616173301770>');
+      message.reply(`${emojis.puff} Não é muito delicado perguntar o peso de uma garota!\nMas, já que insiste, eu peso cerca de *16MB* ${emojis.ara}`);
     }, 2500);
   }
 };
