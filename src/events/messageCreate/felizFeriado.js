@@ -8,7 +8,8 @@ const messageAuthorFilter = require('../../utils/messageAuthorFilter');
  */
 module.exports = (client, message) => {
   const msg = message.content.toLowerCase();
-  if (msg.includes('luna') && msg.includes('feliz')) {
+  if ((msg.includes('luna') || msg.includes('luninha'))
+    && msg.includes('feliz')) {
     if (msg.includes('ano') && msg.includes('novo')) {
       const offset = new Date().getTimezoneOffset() * 60000;
       const now = new Date(new Date() + offset);

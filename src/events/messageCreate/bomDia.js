@@ -10,7 +10,8 @@ const messageAuthorFilter = require('../../utils/messageAuthorFilter');
 module.exports = (client, message) => {
   if (message.author.bot) return;
   let msg = message.content.toLowerCase();
-  if (msg.includes('luna') && msg.includes('bom') && msg.includes('dia')) {
+  if ((msg.includes('luna') || msg.includes('luninha'))
+    && msg.includes('bom') && msg.includes('dia')) {
     setTimeout(() => { message.channel.sendTyping(); }, 1000);
     setTimeout(async () => {
       const hr = new Date().getHours() + ((new Date().getTimezoneOffset() / 60) - 3);

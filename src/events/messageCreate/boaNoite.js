@@ -10,7 +10,7 @@ const messageAuthorFilter = require('../../utils/messageAuthorFilter');
 module.exports = (client, message) => {
   if (message.author.bot) return;
   let msg = message.content.toLowerCase();
-  if (msg.includes('luna')
+  if (msg.includes('luna' || msg.includes('luninha'))
     && (msg.includes('boa') || msg.includes('bah'))
     && (msg.includes('noite') || msg.includes('noche'))
   ) {
