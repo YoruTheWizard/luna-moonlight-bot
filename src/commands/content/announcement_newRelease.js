@@ -80,7 +80,7 @@ module.exports = {
       number = interaction.options.get('numero').value,
       titleDescription = interaction.options.get('descricao')?.value,
       titleLinks = interaction.options.get('link').value.split(', '),
-      image = interaction.options.getAttatchment('imagem')
+      image = interaction.options.getAttachment('imagem')
         || interaction.options.get('imagem-link')?.value
         || null;
 
