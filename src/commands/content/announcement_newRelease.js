@@ -1,6 +1,6 @@
 const { ApplicationCommandOptionType, Client, Interaction, EmbedBuilder } = require("discord.js");
 const { testServer, staff } = require('../../config.json');
-// const newChapterEmbed = require('../../embeds/newChapterEmbed.json');
+// const newReleaseEmbed = require('../../embeds/newReleaseEmbed.json');
 
 module.exports = {
   devOnly: false,
@@ -41,13 +41,23 @@ module.exports = {
     },
     {
       name: 'link',
-      description: 'Link para ler o capítulo',
+      description: 'Link para ler o lançamento',
       type: ApplicationCommandOptionType.String,
       required: true
     },
     {
       name: 'descricao',
-      description: 'Descrição do capítulo',
+      description: 'Descrição do lançamento',
+      type: ApplicationCommandOptionType.String
+    },
+    {
+      name: 'imagem',
+      description: 'Imagem do lançamento',
+      type: ApplicationCommandOptionType.Attachment
+    },
+    {
+      name: 'imagem-link',
+      description: 'Link da imagem do lançamento',
       type: ApplicationCommandOptionType.String
     }
   ],
@@ -69,7 +79,10 @@ module.exports = {
       type = interaction.options.get('tipo').value,
       number = interaction.options.get('numero').value,
       titleDescription = interaction.options.get('descricao')?.value,
-      titleLinks = interaction.options.get('link').value.split(', ');
+      titleLinks = interaction.options.get('link').value.split(', '),
+      image = interaction.options.getAttatchment('imagem')
+        || interaction.options.get('imagem-link')?.value
+        || null;
 
     let links = '- '.concat(titleLinks.join('\n- '));
 
@@ -79,7 +92,7 @@ module.exports = {
       if (title.id === titleName) titleObj = title;
 
     try {
-      const newChapterEmbed = new EmbedBuilder()
+      const newReleaseEmbed = new EmbedBuilder()
         .setColor(titleObj.color)
         .setAuthor({ name: titleObj.longNameJP || titleObj.longName })
         .setTitle(`Novo ${type} de ${titleObj.name}!`)
@@ -88,10 +101,13 @@ module.exports = {
         );
 
       if (titleDescription)
-        newChapterEmbed.addFields({ name: 'Descrição', value: titleDescription });
-      newChapterEmbed.addFields({ name: 'Links', value: links });
+        newReleaseEmbed.addFields({ name: 'Descrição', value: titleDescription });
+      newReleaseEmbed.addFields({ name: 'Links', value: links });
 
-      await interaction.channel.send({ content: `<@&${titleObj.fanRole}>`, embeds: [newChapterEmbed] });
+      if (image)
+        newReleaseEmbed.setImage(image);
+
+      await interaction.channel.send({ content: `<@&${titleObj.fanRole}>`, embeds: [newReleaseEmbed] });
       interaction.reply({ content: 'Mensagem enviada!', ephemeral: true });
     } catch (err) {
       console.error(`Error while running command 'novolancamento': \n${err}`);

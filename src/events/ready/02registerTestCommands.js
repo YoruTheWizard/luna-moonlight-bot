@@ -18,13 +18,13 @@ module.exports = async client => {
       if (existingCommand) {
         if (command.deleted) {
           await applicationCommands.delete(existingCommand.id);
-          console.log(`Deleted command "${name}".`);
+          console.log(`[Test] Deleted command "${name}".`);
           continue;
         }
 
         if (!command.testOnly) {
           await applicationCommands.delete(existingCommand.id);
-          console.log(`Deleted command "${name}".`);
+          console.log(`[Test] Deleted command "${name}".`);
           continue;
         }
 
@@ -34,27 +34,27 @@ module.exports = async client => {
             description,
             options
           });
-          console.log(`Edited existing command "${name}"`);
+          console.log(`[Test] Edited existing command "${name}"`);
         }
       } else {
         if (!command.testOnly) continue;
         if (command.deleted) {
-          console.log(`Skipping registring command "${name}" as it was set to delete.`);
+          console.log(`[Test] Skipping registring command "${name}" as it was set to delete.`);
           continue;
         }
 
         if (name === 'novolancamento' || name === 'recrutamento') {
           options = addTitlesToCommandChoices(options);
-          console.log(`Added choices to "${name}" command.`);
+          console.log(`[Test] Added choices to "${name}" command.`);
         }
 
         await applicationCommands.create({
           name, description, options
         });
-        console.log(`Registered command "${name}".`);
+        console.log(`[Test] Registered command "${name}".`);
       }
     }
   } catch (e) {
-    console.log(`Error while trying to register slash commands: \n${e}`);
+    console.log(`[Test] Error while trying to register slash commands: \n${e}`);
   }
 };
