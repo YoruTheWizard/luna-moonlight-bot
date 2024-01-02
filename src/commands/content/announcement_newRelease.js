@@ -105,7 +105,7 @@ module.exports = {
       newReleaseEmbed.addFields({ name: 'Links', value: links });
 
       if (image)
-        newReleaseEmbed.setImage(image);
+        newReleaseEmbed.setImage(image?.url ? image.url : image);
 
       await interaction.channel.send({ content: `<@&${titleObj.fanRole}>`, embeds: [newReleaseEmbed] });
       interaction.reply({ content: 'Mensagem enviada!', ephemeral: true });
