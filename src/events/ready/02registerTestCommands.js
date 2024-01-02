@@ -22,6 +22,12 @@ module.exports = async client => {
           continue;
         }
 
+        if (!command.testOnly) {
+          await applicationCommands.delete(existingCommand.id);
+          console.log(`Deleted command "${name}".`);
+          continue;
+        }
+
         if (areCommandsDifferent(existingCommand, command)) {
           if (name === 'novolancamento' || name === 'recrutamento') continue;
           await applicationCommands.edit(existingCommand.id, {
@@ -31,6 +37,7 @@ module.exports = async client => {
           console.log(`Edited existing command "${name}"`);
         }
       } else {
+        if (!command.testOnly) continue;
         if (command.deleted) {
           console.log(`Skipping registring command "${name}" as it was set to delete.`);
           continue;
