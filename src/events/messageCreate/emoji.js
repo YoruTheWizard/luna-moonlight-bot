@@ -27,4 +27,9 @@ module.exports = (client, message) => {
     setTimeout(() => { message.reply(emojis.cute); }, 1100);
     return;
   }
+  if (msg === 'yay' || msg === 'lenayay') {
+    setTimeout(() => { message.channel.sendTyping(); }, 1000);
+    setTimeout(() => { message.reply(emojis.yay); }, 1100);
+    return;
+  }
 };
