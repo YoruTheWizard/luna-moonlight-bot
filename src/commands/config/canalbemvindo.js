@@ -2,29 +2,28 @@ const { ApplicationCommandOptionType, PermissionFlagsBits, Client, Interaction }
 const registerServerWelcomeChannel = require("../../utils/registerServerWelcomeChannel");
 
 module.exports = {
-  devOnly: false,
-  testOnly: false,
-  deleted: false,
-
-  name: 'canalbemvindo',
-  description: '[ADM] Configura um canal para serem enviadas as mensagens de bem-vindo e adeus',
-  options: [
-    {
-      name: 'canal',
-      description: 'Canal onde serão enviadas as mensagens de bem-vindo',
-      type: ApplicationCommandOptionType.Channel,
-      required: true
-    },
-  ],
-  permissionsRequired: PermissionFlagsBits.Administrator,
-  botPermissions: PermissionFlagsBits.Administrator,
-
+  data: {
+    name: 'canalbemvindo',
+    description: '[ADM] Configura um canal para serem enviadas as mensagens de bem-vindo e adeus',
+    options: [
+      {
+        name: 'canal',
+        description: 'Canal onde serão enviadas as mensagens de bem-vindo',
+        type: ApplicationCommandOptionType.Channel,
+        required: true
+      },
+    ],
+    permissionsRequired: PermissionFlagsBits.Administrator,
+    botPermissions: PermissionFlagsBits.Administrator,
+  },
   /**
    * 
-   * @param {Client} client 
-   * @param {Interaction} interaction 
+   * @param {{
+   *  interaction: Interaction,
+   *  client: Client
+   * }} param0 
    */
-  callback: async (client, interaction) => {
+  run: async ({ interaction, client }) => {
     try {
       const newChannelId = interaction.options.get('canal').value;
       const newChannel = await interaction.guild.channels.fetch(newChannelId);

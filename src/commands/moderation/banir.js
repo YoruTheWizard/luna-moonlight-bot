@@ -1,34 +1,37 @@
 const { ApplicationCommandOptionType, PermissionFlagsBits, Client } = require("discord.js");
 
 module.exports = {
-  name: 'banir',
-  description: '[ADM] Bane um membro do servidor',
-  devOnly: false,
-  testOnly: false,
-  options: [
-    {
-      name: 'usuario-alvo',
-      description: 'O usuário a ser banido',
-      required: true,
-      type: ApplicationCommandOptionType.Mentionable,
-    },
-    {
-      name: 'razao',
-      description: 'A razão do banimento',
-      type: ApplicationCommandOptionType.String
-    }
-  ],
-  deleted: false,
-  permissionsRequired: [PermissionFlagsBits.BanMembers],
-  botPermissions: [PermissionFlagsBits.BanMembers],
+  data: {
+    name: 'banir',
+    description: '[ADM] Bane um membro do servidor',
+    devOnly: false,
+    testOnly: false,
+    options: [
+      {
+        name: 'usuario-alvo',
+        description: 'O usuário a ser banido',
+        required: true,
+        type: ApplicationCommandOptionType.Mentionable,
+      },
+      {
+        name: 'razao',
+        description: 'A razão do banimento',
+        type: ApplicationCommandOptionType.String
+      }
+    ],
+    deleted: false,
+    permissionsRequired: [PermissionFlagsBits.BanMembers],
+    botPermissions: [PermissionFlagsBits.BanMembers],
+  },
 
   /**
    * 
-   * @param {Client} client 
-   * @param {Intersection} interaction 
+   * @param {{
+   *  interaction: Interaction,
+   *  client: Client
+   * }} param0
    */
-
-  callback: async (client, interaction) => {
+  run: async ({ interaction, client }) => {
     const targetUserId = interaction.options.get('usuario-alvo').value;
     const reason = interaction.options.get('razao')?.value || 'Nenhuma razão providenciada';
     await interaction.deferReply();

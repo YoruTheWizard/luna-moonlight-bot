@@ -2,30 +2,33 @@ const { ApplicationCommandOptionType, Client, Interaction, PermissionFlagsBits }
 const holidayEmbedGenerator = require('../../utils/holidayEmbedGenerator');
 
 module.exports = {
-  name: 'feriado',
-  description: '[ADM] Envia uma mensagem para um feriado',
-  options: [
-    {
-      name: 'feriado',
-      description: 'O feriado para mandar a mensagem',
-      type: ApplicationCommandOptionType.String,
-      required: true,
-      choices: [
-        {
-          name: 'Ano novo',
-          value: 'newyear'
-        },
-      ]
-    }
-  ],
-  permissionsRequired: [PermissionFlagsBits.Administrator],
-
+  data: {
+    name: 'feriado',
+    description: '[ADM] Envia uma mensagem para um feriado',
+    options: [
+      {
+        name: 'feriado',
+        description: 'O feriado para mandar a mensagem',
+        type: ApplicationCommandOptionType.String,
+        required: true,
+        choices: [
+          {
+            name: 'Ano novo',
+            value: 'newyear'
+          },
+        ]
+      }
+    ],
+    permissionsRequired: [PermissionFlagsBits.Administrator],
+  },
   /**
    * 
-   * @param {Client} client 
-   * @param {Interaction} interaction 
+   * @param {{
+   *  interaction: Interaction,
+   *  client: Client
+   * }} param0
    */
-  callback: (client, interaction) => {
+  run: async ({ interaction, client }) => {
     const holiday = interaction.options.get('feriado').value;
     let embed;
     switch (holiday) {

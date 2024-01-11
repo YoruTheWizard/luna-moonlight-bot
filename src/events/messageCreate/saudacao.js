@@ -6,7 +6,7 @@ const messageAuthorFilter = require('../../utils/messageAuthorFilter');
  * @param {Client} client 
  * @param {Message} message 
  */
-module.exports = async (client, message) => {
+module.exports = async (message, client) => {
   if (message.author.bot) return;
   let msg = message.content.toLowerCase();
   if (msg.includes('luna') || msg.includes('luninha')) {
