@@ -10,26 +10,35 @@ const { family } = require('../../config.json');
 module.exports = (client, message) => {
   if (message.author.bot) return;
   const msg = message.content.toLowerCase().replace(/[^a-z]/g, '');
-  if (msg === 'luna' || msg === 'luninha') {
-    setTimeout(() => { message.channel.sendTyping(); }, 1000);
-    setTimeout(() => { message.reply(emojis.luna); }, 1100);
-    return;
+  let typingTime = 1000,
+    answerTime = 1200,
+    response;
+
+  if ((msg === 'luna' || msg === 'luninha')) {
+
+    // AGREE
+    if ((msg.includes('né') || msg.includes('ne') || msg.includes('concorda')))
+      response = emojis.confused;
+
+    // JUST LUNA
+    else response = emojis.luna;
   }
-  if (message.author.id === family[0]) {
-    if (msg.includes('papai') && msg.includes('ama')) {
-      setTimeout(() => { message.channel.sendTyping(); }, 1000);
-      setTimeout(() => { message.reply(emojis.roll); }, 1100);
-      return;
-    }
-  }
-  if (msg === 'fofo') {
-    setTimeout(() => { message.channel.sendTyping(); }, 1000);
-    setTimeout(() => { message.reply(emojis.cute); }, 1100);
-    return;
-  }
-  if (msg === 'yay' || msg === 'lenayay') {
-    setTimeout(() => { message.channel.sendTyping(); }, 1000);
-    setTimeout(() => { message.reply(emojis.yay); }, 1100);
-    return;
+
+  // DADDY LOVES
+  if (!response && (message.author.id === family[0]))
+    if (msg.includes('papai') && msg.includes('ama'))
+      response = emojis.roll;
+
+  // CUTE
+  if (!response && msg === 'fofo')
+    response = emojis.cute;
+
+  // YAY
+  if (!response && (msg === 'yay' || msg === 'lenayay'))
+    response = emojis.yay;
+
+  if (response) {
+    setTimeout(() => { message.channel.sendTyping(); }, typingTime);
+    setTimeout(() => { message.reply(response); }, answerTime);
   }
 };
