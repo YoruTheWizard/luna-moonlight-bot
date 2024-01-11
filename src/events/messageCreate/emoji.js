@@ -9,19 +9,20 @@ const { family } = require('../../config.json');
  */
 module.exports = (client, message) => {
   if (message.author.bot) return;
-  const msg = message.content.toLowerCase().replace(/[^a-z]/g, '');
+  const msg = message.content.toLowerCase().replace(/[^a-záàãéíóõú]/g, '');
   let typingTime = 1000,
     answerTime = 1200,
     response;
 
-  if ((msg === 'luna' || msg === 'luninha')) {
+  if (msg.includes('luna') || msg.includes('luninha')) {
 
     // AGREE
-    if ((msg.includes('né') || msg.includes('ne') || msg.includes('concorda')))
+    if (msg.includes('né') || msg.includes('ne') || msg.includes('concorda'))
       response = emojis.confused;
 
     // JUST LUNA
-    else response = emojis.luna;
+    else if (msg === 'luna' || msg === 'luninha')
+      response = emojis.luna;
   }
 
   // DADDY LOVES
@@ -30,12 +31,15 @@ module.exports = (client, message) => {
       response = emojis.roll;
 
   // CUTE
-  if (!response && msg === 'fofo')
+  if (!response && (msg === 'fofo' || msg === 'fofa'))
     response = emojis.cute;
 
   // YAY
   if (!response && (msg === 'yay' || msg === 'lenayay'))
     response = emojis.yay;
+
+  if (!response && msg === 'hmm')
+    response = emojis.analysis;
 
   if (response) {
     setTimeout(() => { message.channel.sendTyping(); }, typingTime);
