@@ -21,7 +21,7 @@ module.exports = {
    * @param {Interaction} interaction 
    */
   callback: async (client, interaction) => {
-    const adj = require('../../json/adjectives.json'),
+    const adj = require('../../../json/adjectives.json'),
       personId = interaction.options.get('pessoa')?.value || interaction.member.id;
     const person = await interaction.guild.members.fetch(personId);
 
@@ -34,7 +34,7 @@ module.exports = {
 
     let rand = parseInt(Math.random() * adj.length);
 
-    const { family } = require('../../config.json');
+    const { family } = require('../../../config.json');
     if (family.includes(personId))
       while (adj[rand].adj === 'nada' || adj[rand].bad)
         rand = parseInt(Math.random() * (adj.length));

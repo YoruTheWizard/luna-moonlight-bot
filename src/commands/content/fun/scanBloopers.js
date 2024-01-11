@@ -14,7 +14,7 @@ module.exports = {
    * @param {Interaction} interaction 
    */
   callback: async (client, interaction) => {
-    const bloopers = require('../../json/scanBloopers.json');
+    const bloopers = require('../../../json/scanBloopers.json');
     const rand = parseInt(Math.random() * bloopers.length);
     interaction.reply(bloopers[rand]);
   }
