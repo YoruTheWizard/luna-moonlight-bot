@@ -1,55 +1,52 @@
 const { ApplicationCommandOptionType, Client, Interaction, EmbedBuilder } = require('discord.js');
-const { testServer, staff } = require('../../config.json');
-const listTreater = require('../../utils/listTreater');
+const listTreater = require('../../../utils/listTreater');
 
 module.exports = {
-  deleted: false,
-  name: 'recrutamento',
-  description: '[Staff] Manda um anúncio de recrutamento para todos no servidor',
-  options: [
-    {
-      name: 'obra',
-      description: 'A obra na qual está precisando de ajuda',
-      choices: [],
-      type: ApplicationCommandOptionType.String,
-      required: true
-    },
-    {
-      name: 'cargos',
-      description: 'Cargos requisitados, separados por vírgula',
-      type: ApplicationCommandOptionType.String,
-      required: true
-    },
-    {
-      name: 'requisitos',
-      description: 'Requisitos para o recrutamento, separados por vírgula',
-      type: ApplicationCommandOptionType.String,
-      required: true
-    },
-    {
-      name: 'comentario',
-      description: 'Mais informações sobre o anúncio',
-      type: ApplicationCommandOptionType.String
-    },
-    {
-      name: 'contato',
-      description: 'Onde falar com você',
-      type: ApplicationCommandOptionType.String
-    }
-  ],
+  staffOnly: true,
+  data: {
+    name: 'recrutamento',
+    description: '[Staff] Manda um anúncio de recrutamento para todos no servidor',
+    options: [
+      {
+        name: 'obra',
+        description: 'A obra na qual está precisando de ajuda',
+        choices: [],
+        type: ApplicationCommandOptionType.String,
+        required: true
+      },
+      {
+        name: 'cargos',
+        description: 'Cargos requisitados, separados por vírgula',
+        type: ApplicationCommandOptionType.String,
+        required: true
+      },
+      {
+        name: 'requisitos',
+        description: 'Requisitos para o recrutamento, separados por vírgula',
+        type: ApplicationCommandOptionType.String,
+        required: true
+      },
+      {
+        name: 'comentario',
+        description: 'Mais informações sobre o anúncio',
+        type: ApplicationCommandOptionType.String
+      },
+      {
+        name: 'contato',
+        description: 'Onde falar com você',
+        type: ApplicationCommandOptionType.String
+      }
+    ],
+  },
 
   /**
    * 
-   * @param {Client} client 
-   * @param {Interaction} interaction 
+   * @param {{
+   *  interaction: Interaction,
+   *  client: Client
+   * }} param0 
    */
-  callback: async (client, interaction) => {
-    if (interaction.guild.id !== testServer)
-      if (!interaction.member.roles.cache.some(role => role.id === staff)) interaction.reply({
-        content: 'Apenas membros da staff podem usar este comando!',
-        ephemeral: true
-      });
-
+  run: async ({ interaction, client }) => {
     const titleName = interaction.options.get('obra').value,
       roles = listTreater(interaction.options.get('cargos').value),
       requirements = listTreater(interaction.options.get('requisitos').value),
@@ -58,7 +55,7 @@ module.exports = {
       contact = (interaction.options.get('contato')?.value
         || `Mande uma mensagem para ${interaction.member.displayName} pelo privado do discord!`);
 
-    const scanTitles = require('../../json/scanTitles.json');
+    const scanTitles = require('../../../json/scanTitles.json');
     let titleObj;
     for (let title of scanTitles)
       if (title.id === titleName) {

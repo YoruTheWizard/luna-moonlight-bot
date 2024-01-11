@@ -1,12 +1,10 @@
 module.exports = {
-  name: 'ping',
-  description: 'Responde com "pong"',
-  // options: {},
-  devOnly: false,
-  testOnly: false,
-  deleted: false,
+  data: {
+    name: 'ping',
+    description: 'Responde com "pong"',
+  },
 
-  callback: async (client, interaction) => {
+  run: async ({ interaction, client }) => {
     await interaction.deferReply();
     const reply = await interaction.fetchReply();
     const ping = reply.createdTimestamp - interaction.createdTimestamp;

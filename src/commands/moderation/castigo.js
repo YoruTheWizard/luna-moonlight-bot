@@ -2,40 +2,43 @@ const { Client, Interaction, ApplicationCommandOptionType, PermissionFlagsBits }
 const ms = require('ms');
 
 module.exports = {
-  name: 'castigo',
-  description: '[ADM] Silencia um membro por um tempo determinado',
-  devOnly: false,
-  testOnly: false,
-  deleted: false,
-  options: [
-    {
-      name: 'usuario-alvo',
-      description: 'O usuário a ser castigado',
-      required: true,
-      type: ApplicationCommandOptionType.Mentionable
-    },
-    {
-      name: 'duracao',
-      description: 'Duração do castigo (30m, 1h, 1 day).',
-      required: true,
-      type: ApplicationCommandOptionType.String
-    },
-    {
-      name: 'razao',
-      description: 'Razão do castigo',
-      type: ApplicationCommandOptionType.String
-    }
-  ],
-  permissionsRequired: [PermissionFlagsBits.MuteMembers],
-  botPermissions: [PermissionFlagsBits.MuteMembers],
+  data: {
+    name: 'castigo',
+    description: '[ADM] Silencia um membro por um tempo determinado',
+    devOnly: false,
+    testOnly: false,
+    deleted: false,
+    options: [
+      {
+        name: 'usuario-alvo',
+        description: 'O usuário a ser castigado',
+        required: true,
+        type: ApplicationCommandOptionType.Mentionable
+      },
+      {
+        name: 'duracao',
+        description: 'Duração do castigo (30m, 1h, 1 day).',
+        required: true,
+        type: ApplicationCommandOptionType.String
+      },
+      {
+        name: 'razao',
+        description: 'Razão do castigo',
+        type: ApplicationCommandOptionType.String
+      }
+    ],
+    permissionsRequired: [PermissionFlagsBits.MuteMembers],
+    botPermissions: [PermissionFlagsBits.MuteMembers],
+  },
 
   /**
    * 
-   * @param {Client} client 
-   * @param {Interaction} interaction 
+   * @param {{
+   *  interaction: Interaction,
+   *  client: Client
+   * }} param0
    */
-
-  callback: async (client, interaction) => {
+  run: async ({ interaction, client }) => {
     const mentionable = interaction.options.get('usuario-alvo').value;
     const duracao = interaction.options.get('duracao').value
       .replace('dia', 'day')

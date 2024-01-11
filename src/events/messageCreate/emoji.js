@@ -4,10 +4,10 @@ const { family } = require('../../config.json');
 
 /**
  * 
- * @param {Client} client 
  * @param {Message} message 
+ * @param {Client} client 
  */
-module.exports = (client, message) => {
+module.exports = (message, client) => {
   if (message.author.bot) return;
   const msg = message.content.toLowerCase().replace(/[^a-záàãéíóõú]/g, '');
   let typingTime = 1000,

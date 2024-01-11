@@ -3,10 +3,10 @@ const messageAuthorFilter = require('../../utils/messageAuthorFilter');
 
 /**
  * 
- * @param {Client} client 
  * @param {Message} message 
+ * @param {Client} client 
  */
-module.exports = (client, message) => {
+module.exports = (message, client) => {
   const msg = message.content.toLowerCase();
   if ((msg.includes('luna') || msg.includes('luninha'))
     && msg.includes('feliz')) {

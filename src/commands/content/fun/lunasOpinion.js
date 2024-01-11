@@ -1,26 +1,26 @@
 const { ApplicationCommandOptionType, Client, Interaction } = require('discord.js');
 
 module.exports = {
-  devOnly: false,
-  testOnly: false,
-  deleted: false,
-
-  name: 'opiniaodaluna',
-  description: 'Manda aleatoriamente um adjetivo para alguém do servidor',
-  options: [
-    {
-      name: 'pessoa',
-      description: 'O objeto do adjetivo',
-      type: ApplicationCommandOptionType.Mentionable
-    }
-  ],
+  data: {
+    name: 'opiniaodaluna',
+    description: 'Manda aleatoriamente um adjetivo para alguém do servidor',
+    options: [
+      {
+        name: 'pessoa',
+        description: 'O objeto do adjetivo',
+        type: ApplicationCommandOptionType.Mentionable
+      }
+    ],
+  },
 
   /**
    * 
-   * @param {Client} client 
-   * @param {Interaction} interaction 
+   * @param {{
+   *  interaction: Interaction,
+   *  client: Client
+   * }} param0  
    */
-  callback: async (client, interaction) => {
+  run: async ({ interaction, client }) => {
     const adj = require('../../../json/adjectives.json'),
       personId = interaction.options.get('pessoa')?.value || interaction.member.id;
     const person = await interaction.guild.members.fetch(personId);
