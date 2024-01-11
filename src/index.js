@@ -1,6 +1,8 @@
 require('dotenv').config();
 const { Client, IntentsBitField } = require("discord.js");
-const eventHandler = require('./handlers/eventHandler');
+const { CommandHandler } = require('djs-commander');
+const path = require('path');
+const { testServer } = require('./config.json');
 
 const client = new Client({
   intents: [
@@ -16,5 +18,11 @@ const client = new Client({
   },
 });
 
-eventHandler(client);
+new CommandHandler({
+  client,
+  commandsPath: path.join(__dirname, 'commands'),
+  eventsPath: path.join(__dirname, 'events'),
+  validationsPath: path.join(__dirname, 'validations'),
+});
+
 client.login(process.env.TOKEN);
