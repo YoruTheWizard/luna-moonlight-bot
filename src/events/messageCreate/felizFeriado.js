@@ -1,5 +1,5 @@
 const { Client, Message } = require('discord.js');
-const messageAuthorFilter = require('../../utils/messageAuthorFilter');
+const { messageAuthorFilter } = require('../../utils/utils');
 
 /**
  * 
