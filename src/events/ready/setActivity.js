@@ -6,7 +6,7 @@ const { Client, ActivityType } = require("discord.js");
  */
 module.exports = client => {
   client.user.setActivity({
-    name: 'Talking to the moon - Bruno Mars',
-    type: ActivityType.Listening
+    name: 'de castigo... ;-;',
+    type: ActivityType.Playing
   });
 };
