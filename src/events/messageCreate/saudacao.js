@@ -18,7 +18,7 @@ module.exports = async (message, client) => {
 
     // HOW ARE YOU
     if ((msg.includes('como') && (msg.includes('vai') || msg.includes('está'))))
-      response = messageAuthorFilter('olá', member, '... estou bem... e você...?');
+      response = messageAuthorFilter('Olá', member, '! Estou bem, e você?');
 
     // HELLO
     if (!response && (msg.includes('olá') || (msg.includes('oi') && !msg.includes('noite'))))
