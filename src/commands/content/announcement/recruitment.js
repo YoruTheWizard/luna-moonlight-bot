@@ -1,5 +1,5 @@
 const { ApplicationCommandOptionType, Client, Interaction, EmbedBuilder } = require('discord.js');
-const listTreater = require('../../../utils/listTreater');
+const { getTitlesChoices } = require('../../../utils/utils');
 
 module.exports = {
   staffOnly: true,
@@ -10,7 +10,7 @@ module.exports = {
       {
         name: 'obra',
         description: 'A obra na qual está precisando de ajuda',
-        choices: [],
+        choices: getTitlesChoices(),
         type: ApplicationCommandOptionType.String,
         required: true
       },

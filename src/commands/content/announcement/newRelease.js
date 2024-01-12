@@ -1,4 +1,5 @@
 const { ApplicationCommandOptionType, Client, Interaction, EmbedBuilder } = require("discord.js");
+const { getTitlesChoices, linkListTreater } = require('../../../utils/utils');
 
 module.exports = {
   staffOnly: true,
@@ -10,7 +11,7 @@ module.exports = {
         name: 'obra',
         description: 'Nome da obra',
         type: ApplicationCommandOptionType.String,
-        choices: [],
+        choices: getTitlesChoices(),
         required: true
       },
       {
@@ -71,7 +72,7 @@ module.exports = {
       type = interaction.options.get('tipo').value,
       number = interaction.options.get('numero').value,
       titleDescription = interaction.options.get('descricao')?.value,
-      titleLinks = interaction.options.get('link').value.split(', '),
+      titleLinks = linkListTreater(interaction.options.get('link').value),
       image = interaction.options.getAttachment('imagem')
         || interaction.options.get('imagem-link')?.value
         || null;

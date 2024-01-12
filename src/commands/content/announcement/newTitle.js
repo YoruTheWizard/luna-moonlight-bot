@@ -1,5 +1,5 @@
 const { ApplicationCommandOptionType, Client, Interaction, EmbedBuilder } = require('discord.js');
-const listTreater = require('../../../utils/listTreater');
+const { linkListTreater } = require('../../../utils/utils');
 
 module.exports = {
   staffOnly: true,
@@ -51,15 +51,13 @@ module.exports = {
    */
   run: async ({ interaction, client }) => {
     const titleName = interaction.options.get('nome').value,
-      titleURL = interaction.options.get('links').value,
+      links = linkListTreater(interaction.options.get('links').value),
       titleImage = interaction.options.getAttachment('imagem')
         || interaction.options.get('url-imagem').value,
       sinopsys = (interaction.options.get('sinopse')?.value
         || 'Nenhuma sinopse providenciada'),
       comment = (interaction.options.get('comentario')?.value
         || 'Sem comentário');
-
-    const links = listTreater(titleURL);
 
     try {
       const newTitle = new EmbedBuilder()
