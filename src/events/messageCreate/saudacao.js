@@ -18,16 +18,16 @@ module.exports = async (message, client) => {
 
     // HOW ARE YOU
     if ((msg.includes('como') && (msg.includes('vai') || msg.includes('está'))))
-      response = messageAuthorFilter('Olá', member, '! Estou bem. E você?');
+      response = messageAuthorFilter('olá', member, '... estou bem... e você...?');
 
     // HELLO
     if (!response && (msg.includes('olá') || (msg.includes('oi') && !msg.includes('noite'))))
-      response = messageAuthorFilter('Olá', member);
+      response = messageAuthorFilter('olá', member);
 
     // GOOD MORNING
     if (!response && (msg.includes('bom') && msg.includes('dia'))) {
       if (hr >= 4 && hr < 18)
-        response = messageAuthorFilter('Bom dia', member);
+        response = messageAuthorFilter('bom dia', member);
       else response = '*Mas já está de noite...*';
     }
 
@@ -36,17 +36,17 @@ module.exports = async (message, client) => {
       // GOOD AFTERNOON
       if (msg.includes('tarde')) {
         if (hr >= 12 && hr < 18)
-          response = messageAuthorFilter('Boa tarde', member);
+          response = messageAuthorFilter('boa tarde', member);
         else if (hr < 12)
-          response = '*Mas ainda não é de tarde...*';
-        else response = '*Mas já está de noite...*';
+          response = '*mas ainda não é de tarde...*';
+        else response = '*mas já está de noite...*';
       }
 
       // GOOD EVENING/NIGHT
       else if (msg.includes('noite') || msg.includes('noche')) {
         if (hr < 4 || hr > 18)
-          response = messageAuthorFilter('Boa noite', member);
-        else response = '*Mas ainda nem está de noite...*';
+          response = messageAuthorFilter('boa noite', member);
+        else response = '*mas ainda nem está de noite...*';
       }
     }
 
