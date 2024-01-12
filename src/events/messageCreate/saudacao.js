@@ -8,7 +8,7 @@ const messageAuthorFilter = require('../../utils/messageAuthorFilter');
  */
 module.exports = async (message, client) => {
   if (message.author.bot) return;
-  let msg = message.content.toLowerCase();
+  let msg = message.content.toLowerCase().replace(/[^a-záàãâéêíóõôú ]/g, '').split(' ');
   if (msg.includes('luna') || msg.includes('luninha')) {
     const member = await message.guild.members.fetch(message.author.id),
       hr = new Date().getHours() + ((new Date().getTimezoneOffset() / 60) - 3);
