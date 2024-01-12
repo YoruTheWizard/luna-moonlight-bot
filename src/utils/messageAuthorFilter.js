@@ -8,7 +8,7 @@ const emojis = require('../json/emojis.json');
  * @param {GuildMember} member 
  * @param {string | undefined} postText 
  */
-module.exports = (preText, member, postText = '!') => {
+module.exports = (preText, member, postText = '...') => {
   let person;
   if (family.includes(member.id)) {
     if (preText === 'Olá') preText = 'Oi';
@@ -23,5 +23,5 @@ module.exports = (preText, member, postText = '!') => {
     }
   } else person = member.displayName;
 
-  return `${preText}, **${person}**${postText}`;
+  return `*${preText}, **${person}**${postText}*`;
 };
