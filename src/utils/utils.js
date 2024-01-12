@@ -69,22 +69,18 @@ const messageTreater = (msg, allowNumbers) => {
  * @param {string | undefined} postText 
  * @returns string
  */
-const messageAuthorFilter = (preText, member, postText = '...') => {
+const messageAuthorFilter = (preText, member, postText = '!') => {
   let person;
   if (family.includes(member.id)) {
     if (preText === 'Olá') preText = 'Oi';
     switch (member.id) {
-      case family[0]:
-        preText = emojis.crisis.concat(`\n${preText}`);
-        person = 'pai';
-        postText = '...';
-        break;
+      case family[0]: person = 'pai'; break;
       case family[1]: person = 'tio Del'; break;
       case family[2]: person = 'tio Jeff';
     }
   } else person = member.displayName;
 
-  return `*${preText}, **${person}**${postText}*`;
+  return `${preText}, **${person}**${postText}`;
 };
 
 module.exports = {
