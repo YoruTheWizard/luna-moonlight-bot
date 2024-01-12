@@ -20,12 +20,6 @@ module.exports = {
         required: true
       },
       {
-        name: 'url-imagem',
-        description: 'URL de uma imagem da obra',
-        type: ApplicationCommandOptionType.String,
-        required: true
-      },
-      {
         name: 'sinopse',
         description: 'A sinopse da obra',
         type: ApplicationCommandOptionType.String,
@@ -33,6 +27,16 @@ module.exports = {
       {
         name: 'comentario',
         description: 'Algum comentário sobre a obra',
+        type: ApplicationCommandOptionType.String
+      },
+      {
+        name: 'imagem',
+        description: 'Arquivo de uma imagem da obra',
+        type: ApplicationCommandOptionType.Attachment
+      },
+      {
+        name: 'link-imagem',
+        description: 'URL de uma imagem da obra',
         type: ApplicationCommandOptionType.String
       }
     ],
@@ -48,7 +52,8 @@ module.exports = {
   run: async ({ interaction, client }) => {
     const titleName = interaction.options.get('nome').value,
       titleURL = interaction.options.get('links').value,
-      titleImageURL = interaction.options.get('url-imagem').value,
+      titleImage = interaction.options.getAttachment('imagem')
+        || interaction.options.get('url-imagem').value,
       sinopsys = (interaction.options.get('sinopse')?.value
         || 'Nenhuma sinopse providenciada'),
       comment = (interaction.options.get('comentario')?.value
@@ -64,7 +69,7 @@ module.exports = {
           iconURL: interaction.member.displayAvatarURL()
         })
         .setTitle(`Nova obra chegando na Moonlight!`)
-        .setDescription(`Nome: ${titleName}`)
+        .setDescription(`Nome: **${titleName}**`)
         .addFields(
           {
             name: 'Sinopse',
@@ -78,8 +83,10 @@ module.exports = {
             name: 'Links',
             value: links
           }
-        )
-        .setImage(titleImageURL);
+        );
+
+      if (titleImage)
+        newTitle.setImage(titleImage?.url ? titleImage.url : titleImage);
 
       interaction.channel.send({ content: '@everyone', embeds: [newTitle] });
       interaction.reply({ content: 'Mensagem enviada!', ephemeral: true });

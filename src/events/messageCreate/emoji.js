@@ -9,7 +9,7 @@ const { family } = require('../../config.json');
  */
 module.exports = (message, client) => {
   if (message.author.bot) return;
-  const msg = message.content.toLowerCase().replace(/[^a-záàãéíóõú]/g, '');
+  const msg = message.content.toLowerCase().replace(/[^a-záàãéíóõú ]/g, '').split(' ');
   let typingTime = 1000,
     answerTime = 1200,
     response;
@@ -21,14 +21,23 @@ module.exports = (message, client) => {
       response = emojis.confused;
 
     // JUST LUNA
-    else if (msg === 'luna' || msg === 'luninha')
+    else if (msg.length === 1)
       response = emojis.luna;
   }
 
-  // DADDY LOVES
-  if (!response && (message.author.id === family[0]))
+  if (!response && (message.author.id === family[0])) {
+    // DADDY LOVES
     if (msg.includes('papai') && msg.includes('ama'))
       response = emojis.roll;
+
+    // FULL NAME
+    if (msg.length === 2 && msg.includes('luna') && msg.includes('moonlight'))
+      response = emojis.uwa;
+
+    // LUNA GROUNDED
+    if (msg.includes('luna') && msg.includes('castigo'))
+      response = emojis.crisis;
+  }
 
   // CUTE
   if (!response && (msg === 'fofo' || msg === 'fofa'))
