@@ -35,7 +35,7 @@ const linkListTreater = linksText => {
   const links = [],
     splitLinks = linksText.split(', ');
   for (let i = 0; i < splitLinks.length; i++) {
-    const link = splitLinks[0].split(' ');
+    let link = splitLinks[i].split(' ');
     let linkObj = {
       num: i + 1,
       name: link[1].replace('-', ' '),
@@ -45,7 +45,7 @@ const linkListTreater = linksText => {
     if (link[2])
       linkObj.emoji = link[2].replace(/[^0-9]/g, '');
 
-    links.push[linkObj];
+    links.push(linkObj);
   }
   return links;
 };
@@ -76,10 +76,11 @@ const messageAuthorFilter = (preText, member, postText = '!') => {
     switch (member.id) {
       case family[0]: person = 'pai'; break;
       case family[1]: person = 'tio Del'; break;
-      case family[2]: person = 'tio Jeff';
+      case family[2]: person = 'tio Jeff'; break;
+      case family[3]: person = 'Cadu onii-san';
     }
   } else person = member.displayName;
-
+  console.log(member.id);
   return `${preText}, **${person}**${postText}`;
 };
 

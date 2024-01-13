@@ -51,13 +51,17 @@ module.exports = {
    */
   run: async ({ interaction, client }) => {
     const titleName = interaction.options.get('nome').value,
-      links = linkListTreater(interaction.options.get('links').value),
+      titleLinks = linkListTreater(interaction.options.get('links').value),
       titleImage = interaction.options.getAttachment('imagem')
         || interaction.options.get('url-imagem').value,
       sinopsys = (interaction.options.get('sinopse')?.value
         || 'Nenhuma sinopse providenciada'),
       comment = (interaction.options.get('comentario')?.value
         || 'Sem comentário');
+
+    const linksArray = [];
+    for (let link of titleLinks) linksArray.push(`[${link.name}](${link.url})`);
+    let links = '- '.concat(linksURL.join('\n- '));
 
     try {
       const newTitle = new EmbedBuilder()
