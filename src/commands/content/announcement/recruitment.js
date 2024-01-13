@@ -1,5 +1,5 @@
 const { ApplicationCommandOptionType, Client, Interaction, EmbedBuilder } = require('discord.js');
-const { getTitlesChoices } = require('../../../utils/utils');
+const { getTitlesChoices, listTreater, errorLogger, sendEmbeds } = require('../../../utils/utils');
 
 module.exports = {
   staffOnly: true,
@@ -50,10 +50,8 @@ module.exports = {
     const titleName = interaction.options.get('obra').value,
       roles = listTreater(interaction.options.get('cargos').value),
       requirements = listTreater(interaction.options.get('requisitos').value),
-      comment = (interaction.options.get('comentario')?.value
-        || 'Nenhuma informação adicional providenciada.'),
-      contact = (interaction.options.get('contato')?.value
-        || `Mande uma mensagem para ${interaction.member.displayName} pelo privado do discord!`);
+      comment = interaction.options.get('comentario')?.value,
+      contact = interaction.options.get('contato')?.value;
 
     const scanTitles = require('../../../json/scanTitles.json');
     let titleObj;
@@ -83,20 +81,25 @@ module.exports = {
             value: requirements,
             inline: true
           },
-          {
-            name: 'Mais informações',
-            value: comment
-          },
-          {
-            name: 'Contato',
-            value: contact
-          }
         );
 
-      interaction.channel.send({ content: '@everyone', embeds: [recruitment] });
-      interaction.reply({ content: 'Mensagem enviada!', ephemeral: true });
+      if (comment)
+        recruitment.addFields({ name: 'Mais informações', value: comment });
+
+      recruitment.addFields({
+        name: 'Contato',
+        value: contact ? contact : `Mande uma mensagem para **${interaction.member.displayName}** pelo privado do discord!`
+      });
+
+      await sendEmbeds({
+        interaction,
+        embeds: [recruitment],
+        ephemeral: true
+      });
+      // interaction.channel.send({ content: '@everyone', embeds: [recruitment] });
+      // interaction.reply({ content: 'Mensagem enviada!', ephemeral: true });
     } catch (err) {
-      console.error(`Error while running command 'recrutamento':\n${err}`);
+      errorLogger('recrutamento', err);
     }
   }
 };

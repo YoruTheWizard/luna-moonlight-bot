@@ -1,4 +1,4 @@
-const { GuildMember } = require('discord.js');
+const { GuildMember, ActionRowBuilder } = require('discord.js');
 const { family } = require('../config.json');
 const scanTitles = require('../json/scanTitles.json');
 const emojis = require('../json/emojis.json');
@@ -13,6 +13,18 @@ const getTitlesChoices = () => {
     choices.push({ name: title.name, value: title.id });
   }
   return choices;
+};
+
+/**
+ * 
+ * @param {string} msg 
+ * @param {boolean} allowNumbers 
+ * @returns string
+ */
+const messageTreater = (msg, allowNumbers) => {
+  if (allowNumbers)
+    return msg.content.toLowerCase().replace(/[^a-z0-9áàãâéêíóõôúñ]/g, '');
+  return msg.content.toLowerCase().replace(/[^a-záàãâéêíóõôúñ]/g, '');
 };
 
 /**
@@ -52,14 +64,7 @@ const linkListTreater = linksText => {
 
 /**
  * 
- * @param {string} msg 
- * @param {boolean} allowNumbers 
- * @returns string
  */
-const messageTreater = (msg, allowNumbers) => {
-  if (allowNumbers)
-    return msg.content.toLowerCase().replace(/[^a-z0-9áàãâéêíóõôúñ]/g, '');
-  return msg.content.toLowerCase().replace(/[^a-záàãâéêíóõôúñ]/g, '');
 };
 
 /**
@@ -84,10 +89,40 @@ const messageAuthorFilter = (preText, member, postText = '!') => {
   return `${preText}, **${person}**${postText}`;
 };
 
+/**
+ * 
+ * @param {{
+ *  interaction: import('discord.js').Interaction,
+ *  embeds: EmbedBuilder[],
+ *  ephemeral: boolean,
+ *  rows?: ActionRowBuilder[],
+ *  role?: Role | "@everyone",
+ * }} @param0
+ */
+const sendEmbeds = async ({ interaction, embeds, ephemeral, role, rows }) => {
+  if (!role) role = '@everyone';
+  if (ephemeral) {
+    await interaction.channel.send({ content: `${role}`, embeds, components: rows });
+    interaction.reply({ content: 'Mensagem enviada!', ephemeral: true });
+  } else interaction.reply({ content: `${role}`, embeds, components: rows });
+};
+
+/**
+ * 
+ * @param {string} commandName 
+ * @param {string} errMessage 
+ */
+const errorLogger = (commandName, errMessage) => {
+  console.error(`Error while running command "${commandName}":\n${errMessage}`);
+};
+
 module.exports = {
   getTitlesChoices,
+  messageTreater,
   listTreater,
   linkListTreater,
-  messageTreater,
-  messageAuthorFilter
+  linkButtonsRow,
+  messageAuthorFilter,
+  sendEmbeds,
+  errorLogger
 };

@@ -1,4 +1,5 @@
 const { ApplicationCommandOptionType, PermissionFlagsBits, Client } = require("discord.js");
+const { errorLogger } = require('../../utils/utils');
 
 module.exports = {
   data: {
@@ -63,7 +64,7 @@ module.exports = {
       await targetUser.ban({ reason });
       await interaction.editReply(`Usuário ${targetUser} foi banido.\nRazão: ${reason}`);
     } catch (err) {
-      console.error(`There was an error while running the command 'ban': \n${err}`);
+      errorLogger('banir', err);
     }
   }
 };

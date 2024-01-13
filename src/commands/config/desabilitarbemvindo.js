@@ -1,5 +1,6 @@
 const { PermissionFlagsBits, Client, Interaction } = require("discord.js");
 const { welcomeOn } = require('../../config.json');
+const { errorLogger } = require('../../utils/utils');
 
 module.exports = {
   data: {
@@ -17,13 +18,17 @@ module.exports = {
    * }} param0 
    */
   run: async ({ interaction, client }) => {
-    await interaction.deferReply();
-    if (welcomeOn.filter().length === 0) {
-      await interaction.editReply({ content: 'As mensagens de bem-vindo não estão habilitadas neste servidor!', ephemeral: true });
-      return;
-    }
+    try {
+      await interaction.deferReply();
+      if (welcomeOn.filter().length === 0) {
+        await interaction.editReply({ content: 'As mensagens de bem-vindo não estão habilitadas neste servidor!', ephemeral: true });
+        return;
+      }
 
-    welcomeOn = welcomeOn.filter(e => e.server !== interaction.guild.id);
-    await interaction.editReply('Mensagens de bem-vindo desabilitadas neste servidor.');
+      welcomeOn = welcomeOn.filter(e => e.server !== interaction.guild.id);
+      await interaction.editReply('Mensagens de bem-vindo desabilitadas neste servidor.');
+    } catch (err) {
+      errorLogger('desabilitarbemvindo', err);
+    }
   }
 };
