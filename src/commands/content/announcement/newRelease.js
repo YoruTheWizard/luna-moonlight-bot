@@ -77,7 +77,11 @@ module.exports = {
         || interaction.options.get('imagem-link')?.value
         || null;
 
-    let links = '- '.concat(titleLinks.join('\n- '));
+    let linksURL = [];
+    for (let link of titleLinks) {
+      linksURL.push(`[${link.name}](${link.url})`);
+    }
+    let links = '- '.concat(linksURL.join('\n- '));
 
     const scanTitles = require('../../../json/scanTitles.json');
     let titleObj;

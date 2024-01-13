@@ -35,7 +35,7 @@ const linkListTreater = linksText => {
   const links = [],
     splitLinks = linksText.split(', ');
   for (let i = 0; i < splitLinks.length; i++) {
-    const link = splitLinks[0].split(' ');
+    let link = splitLinks[i].split(' ');
     let linkObj = {
       num: i + 1,
       name: link[1].replace('-', ' '),
@@ -45,7 +45,7 @@ const linkListTreater = linksText => {
     if (link[2])
       linkObj.emoji = link[2].replace(/[^0-9]/g, '');
 
-    links.push[linkObj];
+    links.push(linkObj);
   }
   return links;
 };
