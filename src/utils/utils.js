@@ -139,8 +139,7 @@ const checkMood = (text, member) => {
     alteredText = alteredText.concat(text.replace('!', '').replace(/\*\*/g, '***'));
     return alteredText;
   }
-
-  return alteredText;
+  return alteredText.concat(text);
 };
 
 /**
