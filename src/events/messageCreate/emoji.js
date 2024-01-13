@@ -39,16 +39,18 @@ module.exports = (message, client) => {
       response = emojis.crisis;
   }
 
-  // CUTE
-  if (!response && (msg === 'fofo' || msg === 'fofa'))
-    response = emojis.cute;
+  if (!response && msg.length === 1) {
+    // CUTE
+    if (!response && (msg.includes('fofo') || msg.includes('fofa')))
+      response = emojis.cute;
 
-  // YAY
-  if (!response && (msg === 'yay' || msg === 'lenayay'))
-    response = emojis.yay;
+    // YAY
+    if (!response && (msg.includes('yay') || msg.includes('lenayay')))
+      response = emojis.yay;
 
-  if (!response && msg === 'hmm')
-    response = emojis.analysis;
+    if (!response && msg.includes('hmm'))
+      response = emojis.analysis;
+  }
 
   if (response) {
     setTimeout(() => { message.channel.sendTyping(); }, typingTime);

@@ -76,10 +76,11 @@ const messageAuthorFilter = (preText, member, postText = '!') => {
     switch (member.id) {
       case family[0]: person = 'pai'; break;
       case family[1]: person = 'tio Del'; break;
-      case family[2]: person = 'tio Jeff';
+      case family[2]: person = 'tio Jeff'; break;
+      case family[3]: person = 'Cadu onii-san';
     }
   } else person = member.displayName;
-
+  console.log(member.id);
   return `${preText}, **${person}**${postText}`;
 };
 

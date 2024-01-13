@@ -22,12 +22,12 @@ module.exports = async (message, client) => {
 
     // HELLO
     if (!response && (msg.includes('olá') || (msg.includes('oi') && !msg.includes('noite'))))
-      response = messageAuthorFilter('olá', member);
+      response = messageAuthorFilter('Olá', member);
 
     // GOOD MORNING
     if (!response && (msg.includes('bom') && msg.includes('dia'))) {
       if (hr >= 4 && hr < 18)
-        response = messageAuthorFilter('bom dia', member);
+        response = messageAuthorFilter('Bom dia', member);
       else response = '*Mas já está de noite...*';
     }
 
@@ -36,17 +36,17 @@ module.exports = async (message, client) => {
       // GOOD AFTERNOON
       if (msg.includes('tarde')) {
         if (hr >= 12 && hr < 18)
-          response = messageAuthorFilter('boa tarde', member);
+          response = messageAuthorFilter('Boa tarde', member);
         else if (hr < 12)
           response = '*mas ainda não é de tarde...*';
-        else response = '*mas já está de noite...*';
+        else response = '*Mas já está de noite...*';
       }
 
       // GOOD EVENING/NIGHT
       else if (msg.includes('noite') || msg.includes('noche')) {
         if (hr < 4 || hr > 18)
-          response = messageAuthorFilter('boa noite', member);
-        else response = '*mas ainda nem está de noite...*';
+          response = messageAuthorFilter('Boa noite', member);
+        else response = '*Mas ainda nem está de noite...*';
       }
     }
 
