@@ -1,5 +1,5 @@
 const { ApplicationCommandOptionType, Client, Interaction, EmbedBuilder } = require('discord.js');
-const { linkListTreater } = require('../../../utils/utils');
+const { linkListTreater, errorLogger, sendEmbeds } = require('../../../utils/utils');
 
 module.exports = {
   staffOnly: true,
@@ -53,15 +53,13 @@ module.exports = {
     const titleName = interaction.options.get('nome').value,
       titleLinks = linkListTreater(interaction.options.get('links').value),
       titleImage = interaction.options.getAttachment('imagem')
-        || interaction.options.get('url-imagem').value,
-      sinopsys = (interaction.options.get('sinopse')?.value
-        || 'Nenhuma sinopse providenciada'),
-      comment = (interaction.options.get('comentario')?.value
-        || 'Sem comentário');
+        || interaction.options.get('url-imagem')?.value,
+      sinopsys = interaction.options.get('sinopse')?.value,
+      comment = interaction.options.get('comentario')?.value;
 
     const linksArray = [];
     for (let link of titleLinks) linksArray.push(`[${link.name}](${link.url})`);
-    let links = '- '.concat(linksURL.join('\n- '));
+    let links = '- '.concat(linksArray.join('\n- '));
 
     try {
       const newTitle = new EmbedBuilder()
@@ -72,28 +70,26 @@ module.exports = {
         })
         .setTitle(`Nova obra chegando na Moonlight!`)
         .setDescription(`Nome: **${titleName}**`)
-        .addFields(
-          {
-            name: 'Sinopse',
-            value: sinopsys
-          },
-          {
-            name: 'Comentário',
-            value: comment
-          },
-          {
-            name: 'Links',
-            value: links
-          }
-        );
+        .addFields({ name: 'Links', value: links });
+
+      if (sinopsys)
+        newTitle.addFields({ name: 'Sinopse', value: sinopsys });
+
+      if (comment)
+        newTitle.addFields({ name: 'Comentário', value: comment });
 
       if (titleImage)
         newTitle.setImage(titleImage?.url ? titleImage.url : titleImage);
 
-      interaction.channel.send({ content: '@everyone', embeds: [newTitle] });
-      interaction.reply({ content: 'Mensagem enviada!', ephemeral: true });
+      await sendEmbeds({
+        interaction,
+        embeds: [newTitle],
+        ephemeral: true,
+      });
+      // interaction.channel.send({ content: '@everyone', embeds: [newTitle] });
+      // interaction.reply({ content: 'Mensagem enviada!', ephemeral: true });
     } catch (err) {
-      console.error(`Error while running command 'novocapitulo':\n${err}`);
+      errorLogger('novaobra', err);
     }
   }
 };

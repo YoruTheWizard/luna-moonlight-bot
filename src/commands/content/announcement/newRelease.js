@@ -1,5 +1,5 @@
 const { ApplicationCommandOptionType, Client, Interaction, EmbedBuilder } = require("discord.js");
-const { getTitlesChoices, linkListTreater } = require('../../../utils/utils');
+const { getTitlesChoices, linkListTreater, errorLogger, sendEmbeds } = require('../../../utils/utils');
 
 module.exports = {
   staffOnly: true,
@@ -104,10 +104,17 @@ module.exports = {
       if (image)
         newReleaseEmbed.setImage(image?.url ? image.url : image);
 
-      await interaction.channel.send({ content: `<@&${titleObj.fanRole}>`, embeds: [newReleaseEmbed] });
-      interaction.reply({ content: 'Mensagem enviada!', ephemeral: true });
+      const role = interaction.guild.roles.cache.get(titleObj.fanRole);
+
+      await sendEmbeds({
+        interaction,
+        embeds: [newReleaseEmbed],
+        ephemeral: true,
+        role: role ? role : '@deleted-role'
+      });
+
     } catch (err) {
-      console.error(`Error while running command 'novolancamento': \n${err}`);
+      errorLogger('novolancamento', err);
     }
   }
 };
