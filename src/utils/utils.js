@@ -1,5 +1,5 @@
 const { GuildMember, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const { family } = require('../config.json');
+const { family, mood } = require('../config.json');
 const scanTitles = require('../json/scanTitles.json');
 const emojis = require('../json/emojis.json');
 
@@ -100,7 +100,47 @@ const messageAuthorFilter = (preText, member, postText = '!') => {
     }
   } else person = member.displayName;
 
-  return `${preText}, **${person}**${postText}`;
+  return checkMood(`${preText}, **${person}**${postText}`, member);
+};
+
+/**
+ * 
+ * @returns {{
+ *  state: 'happy' | 'sad' | 'mad',
+ *  trigger: string | null
+ * }}
+ */
+const getLunaMood = () => {
+  return mood;
+};
+
+/**
+ * 
+ * @param {string} text 
+ * @param {GuildMember} member 
+ * @returns string
+ */
+const checkMood = (text, member) => {
+  const { state, trigger } = mood;
+  let alteredText = '';
+
+  if (trigger) // Check for trigger
+    if (member.id === trigger) // Check if message sender is the trigger
+      switch (state) {
+        case 'sad': alteredText = `${emojis.crisis}\n`; break;
+        case 'mad': alteredText = emojis.puff; return alteredText;
+      }
+
+  if (state === 'sad') {
+    alteredText = alteredText.concat(`*${text}*`.replace(/[\.,!]/g, '...'));
+    return alteredText;
+  }
+  if (state === 'mad') {
+    alteredText = alteredText.concat(text.replace('!', '').replace(/\*\*/g, '***'));
+    return alteredText;
+  }
+
+  return alteredText;
 };
 
 /**
@@ -137,6 +177,8 @@ module.exports = {
   linkListTreater,
   linkButtonsRow,
   messageAuthorFilter,
+  getLunaMood,
+  checkMood,
   sendEmbeds,
   errorLogger
 };
