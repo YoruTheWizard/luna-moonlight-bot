@@ -1,6 +1,7 @@
 const { Client, Message } = require('discord.js');
 const emojis = require('../../json/emojis.json');
 const { family } = require('../../config.json');
+const { getLunaMood } = require('../../utils/utils');
 
 /**
  * 
@@ -9,7 +10,8 @@ const { family } = require('../../config.json');
  */
 module.exports = (message, client) => {
   if (message.author.bot) return;
-  const msg = message.content.toLowerCase().replace(/[^a-záàãéíóõú ]/g, '').split(' ');
+  const { state } = getLunaMood(),
+    msg = message.content.toLowerCase().replace(/[^a-záàãéíóõú ]/g, '').split(' ');
   let typingTime = 1000,
     answerTime = 1200,
     response;
@@ -42,15 +44,21 @@ module.exports = (message, client) => {
   if (!response && msg.length === 1) {
     // CUTE
     if (!response && (msg.includes('fofo') || msg.includes('fofa')))
-      response = emojis.cute;
+      if (state === 'happy') response = emojis.cute;
 
     // YAY
     if (!response && (msg.includes('yay') || msg.includes('lenayay')))
-      response = emojis.yay;
+      if (state === 'happy') response = emojis.yay;
 
     if (!response && msg.includes('hmm'))
-      response = emojis.analysis;
+      if (state === 'happy') response = emojis.analysis;
   }
+
+  if (response && state === 'mad')
+    response = emojis.puff;
+
+  if (response && state === 'sad')
+    response = emojis.crisis;
 
   if (response) {
     setTimeout(() => { message.channel.sendTyping(); }, typingTime);

@@ -1,4 +1,5 @@
 const { ApplicationCommandOptionType, Client, Interaction } = require('discord.js');
+const { getLunaMood } = require('../../../utils/utils');
 
 module.exports = {
   data: {
@@ -32,12 +33,18 @@ module.exports = {
       return;
     }
 
+    const mood = getLunaMood();
     let rand = parseInt(Math.random() * adj.length);
 
     const { family } = require('../../../config.json');
-    if (family.includes(personId))
+    if (mood.state === 'happy' && family.includes(personId))
       while (adj[rand].adj === 'nada' || adj[rand].bad)
         rand = parseInt(Math.random() * (adj.length));
+
+    if (mood.state === 'mad') {
+      while (adj[rand].adj === 'nada' || !adj[rand].bad)
+        rand = parseInt(Math.random() * (adj.length));
+    }
 
     if (adj[rand].adj === 'nada') {
       interaction.editReply(`Não tenho muito a dizer sobre ${person.displayName}`);
