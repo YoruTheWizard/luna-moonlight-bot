@@ -1,5 +1,6 @@
 const { ApplicationCommandOptionType, PermissionFlagsBits, Client, Interaction } = require("discord.js");
 const registerServerWelcomeChannel = require("../../utils/registerServerWelcomeChannel");
+const { errorLogger } = require('../../utils/utils');
 
 module.exports = {
   data: {
@@ -58,7 +59,7 @@ module.exports = {
         `Canal de mensagens de bem-vindo realocado para #${newChannel.name}.`
       );
     } catch (err) {
-      console.error(`Error while running command 'canalbemvindo': \n${err}`);
+      errorLogger('canalbemvindo', err);
     }
   }
 };

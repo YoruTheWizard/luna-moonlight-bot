@@ -1,5 +1,6 @@
 const { Client, Interaction, ApplicationCommandOptionType, PermissionFlagsBits } = require("discord.js");
 const ms = require('ms');
+const { errorLogger } = require('../../utils/utils');
 
 module.exports = {
   data: {
@@ -110,7 +111,7 @@ module.exports = {
         .replace('day', 'dia')
         .replace('days', 'dias')}.\nRazão: ${razao}`);
     } catch (err) {
-      console.error(`There was an error while running command 'timeout': \n${err}`);
+      errorLogger('castigo', err);
     }
   }
 };
