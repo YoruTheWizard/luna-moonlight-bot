@@ -1,5 +1,5 @@
 const { ApplicationCommandOptionType, Client, Interaction, EmbedBuilder } = require('discord.js');
-const { linkListTreater, errorLogger, sendEmbeds } = require('../../../utils/utils');
+const { linkListTreater, errorLogger, sendEmbeds, linkButtonsRow } = require('../../../utils/utils');
 
 module.exports = {
   staffOnly: true,
@@ -57,9 +57,9 @@ module.exports = {
       sinopsys = interaction.options.get('sinopse')?.value,
       comment = interaction.options.get('comentario')?.value;
 
-    const linksArray = [];
-    for (let link of titleLinks) linksArray.push(`[${link.name}](${link.url})`);
-    let links = '- '.concat(linksArray.join('\n- '));
+    // const linksArray = [];
+    // for (let link of titleLinks) linksArray.push(`[${link.name}](${link.url})`);
+    // let links = '- '.concat(linksArray.join('\n- '));
 
     try {
       const newTitle = new EmbedBuilder()
@@ -69,8 +69,8 @@ module.exports = {
           iconURL: interaction.member.displayAvatarURL()
         })
         .setTitle(`Nova obra chegando na Moonlight!`)
-        .setDescription(`Nome: **${titleName}**`)
-        .addFields({ name: 'Links', value: links });
+        .setDescription(`Nome: **${titleName}**`);
+      // .addFields({ name: 'Links', value: links });
 
       if (sinopsys)
         newTitle.addFields({ name: 'Sinopse', value: sinopsys });
@@ -81,10 +81,13 @@ module.exports = {
       if (titleImage)
         newTitle.setImage(titleImage?.url ? titleImage.url : titleImage);
 
+      const buttons = linkButtonsRow(titleLinks);
+
       await sendEmbeds({
         interaction,
         embeds: [newTitle],
         ephemeral: true,
+        rows: [buttons]
       });
       // interaction.channel.send({ content: '@everyone', embeds: [newTitle] });
       // interaction.reply({ content: 'Mensagem enviada!', ephemeral: true });

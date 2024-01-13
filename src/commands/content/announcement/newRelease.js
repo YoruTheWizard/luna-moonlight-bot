@@ -1,5 +1,5 @@
 const { ApplicationCommandOptionType, Client, Interaction, EmbedBuilder } = require("discord.js");
-const { getTitlesChoices, linkListTreater, errorLogger, sendEmbeds } = require('../../../utils/utils');
+const { getTitlesChoices, linkListTreater, errorLogger, sendEmbeds, linkButtonsRow } = require('../../../utils/utils');
 
 module.exports = {
   staffOnly: true,
@@ -77,12 +77,6 @@ module.exports = {
         || interaction.options.get('imagem-link')?.value
         || null;
 
-    let linksURL = [];
-    for (let link of titleLinks) {
-      linksURL.push(`[${link.name}](${link.url})`);
-    }
-    let links = '- '.concat(linksURL.join('\n- '));
-
     const scanTitles = require('../../../json/scanTitles.json');
     let titleObj;
     for (let title of scanTitles)
@@ -99,18 +93,20 @@ module.exports = {
 
       if (titleDescription)
         newReleaseEmbed.addFields({ name: 'Descrição', value: titleDescription });
-      newReleaseEmbed.addFields({ name: 'Links', value: links });
+      // newReleaseEmbed.addFields({ name: 'Links', value: links });
 
       if (image)
         newReleaseEmbed.setImage(image?.url ? image.url : image);
 
       const role = interaction.guild.roles.cache.get(titleObj.fanRole);
+      const buttons = linkButtonsRow(titleLinks);
 
       await sendEmbeds({
         interaction,
         embeds: [newReleaseEmbed],
         ephemeral: true,
-        role: role ? role : '@deleted-role'
+        role: role ? role : '@deleted-role',
+        rows: [buttons]
       });
 
     } catch (err) {

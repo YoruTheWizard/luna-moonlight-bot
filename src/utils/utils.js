@@ -1,4 +1,4 @@
-const { GuildMember, ActionRowBuilder } = require('discord.js');
+const { GuildMember, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { family } = require('../config.json');
 const scanTitles = require('../json/scanTitles.json');
 const emojis = require('../json/emojis.json');
@@ -64,7 +64,21 @@ const linkListTreater = linksText => {
 
 /**
  * 
+ * @param {{ num: number, name: string, url: string, emoji?: string }[]} links 
+ * @returns ActionRowBuilder
  */
+const linkButtonsRow = links => {
+  const row = new ActionRowBuilder();
+  for (let link of links) {
+    let btn =
+      new ButtonBuilder()
+        .setStyle(ButtonStyle.Link)
+        .setLabel(link.name)
+        .setURL(link.url);
+    if (link.emoji) btn.setEmoji(link.emoji);
+    row.components.push(btn);
+  }
+  return row;
 };
 
 /**
