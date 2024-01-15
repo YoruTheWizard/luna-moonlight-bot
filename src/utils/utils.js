@@ -50,7 +50,7 @@ const linkListTreater = linksText => {
     let link = splitLinks[i].split(' ');
     let linkObj = {
       num: i + 1,
-      name: link[1].replace('-', ' '),
+      name: link[1] ? link[1].replace(/-/g, ' ') : null,
       url: link[0],
     };
 
