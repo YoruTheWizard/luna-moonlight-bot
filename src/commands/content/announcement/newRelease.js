@@ -77,6 +77,11 @@ module.exports = {
         || interaction.options.get('imagem-link')?.value
         || null;
 
+    if (!titleLinks[0].name) {
+      interaction.reply({ content: '*Opa!* Parece que você mandou os links do jeito errado!\nTente escrever os links no modelo: *"link.com Nome-do-link emoji"*.\nOs emojis não são obrigatórios.', ephemeral: true });
+      return;
+    }
+
     const scanTitles = require('../../../json/scanTitles.json');
     let titleObj;
     for (let title of scanTitles)
@@ -98,7 +103,7 @@ module.exports = {
       if (image)
         newReleaseEmbed.setImage(image?.url ? image.url : image);
 
-      const role = interaction.guild.roles.cache.get(titleObj.fanRole);
+      const role = interaction.channel.guild.roles.cache.get(titleObj.fanRole);
       const buttons = linkButtonsRow(titleLinks);
 
       await sendEmbeds({
