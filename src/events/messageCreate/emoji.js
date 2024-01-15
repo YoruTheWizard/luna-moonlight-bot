@@ -50,8 +50,13 @@ module.exports = (message, client) => {
     if (!response && (msg.includes('yay') || msg.includes('lenayay')))
       if (state === 'happy') response = emojis.yay;
 
+    // HMM
     if (!response && msg.includes('hmm'))
       if (state === 'happy') response = emojis.analysis;
+
+    // JUST CAT
+    if (!response && msg.includes('apenasgato'))
+      if (state === 'happy') response = emojis.cat;
   }
 
   if (response && state === 'mad')
