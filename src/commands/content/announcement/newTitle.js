@@ -57,9 +57,10 @@ module.exports = {
       sinopsys = interaction.options.get('sinopse')?.value,
       comment = interaction.options.get('comentario')?.value;
 
-    // const linksArray = [];
-    // for (let link of titleLinks) linksArray.push(`[${link.name}](${link.url})`);
-    // let links = '- '.concat(linksArray.join('\n- '));
+    if (!titleLinks[0].name) {
+      interaction.reply({ content: '*Opa!* Parece que você mandou os links do jeito errado!\nTente escrever os links no modelo: *"link.com Nome-do-link emoji"*.\nOs emojis não são obrigatórios.', ephemeral: true });
+      return;
+    }
 
     try {
       const newTitle = new EmbedBuilder()
