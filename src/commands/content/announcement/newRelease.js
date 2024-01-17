@@ -43,6 +43,11 @@ module.exports = {
         required: true
       },
       {
+        name: 'volume',
+        description: 'Volume do capítulo',
+        type: ApplicationCommandOptionType.Number
+      },
+      {
         name: 'descricao',
         description: 'Descrição do lançamento',
         type: ApplicationCommandOptionType.String
@@ -71,8 +76,9 @@ module.exports = {
     const titleName = interaction.options.get('obra').value,
       type = interaction.options.get('tipo').value,
       number = interaction.options.get('numero').value,
-      titleDescription = interaction.options.get('descricao')?.value,
       titleLinks = linkListTreater(interaction.options.get('link').value),
+      volume = interaction.options.get('volume')?.value,
+      titleDescription = interaction.options.get('descricao')?.value,
       image = interaction.options.getAttachment('imagem')
         || interaction.options.get('imagem-link')?.value
         || null;
@@ -93,7 +99,7 @@ module.exports = {
         .setAuthor({ name: titleObj.longNameJP || titleObj.longName })
         .setTitle(`Novo ${type} de ${titleObj.name}!`)
         .setDescription(
-          `O ${type} **${number}** já está disponível! Venha ver!<${titleObj.emoji || ':tada:'}>`
+          `O ${type} **${number}**${volume ? ` do volume *${volume}*` : ''} já está disponível! Venha ver!<${titleObj.emoji || ':tada:'}>`
         );
 
       if (titleDescription)

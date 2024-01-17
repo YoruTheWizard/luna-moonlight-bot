@@ -69,7 +69,7 @@ module.exports = {
           iconURL: interaction.member.displayAvatarURL()
         })
         .setTitle('Estamos recrutando!')
-        .setDescription(`<@${interaction.member.id}> está solicitando membros para axuiliarem em **${titleObj.name}**`)
+        .setDescription(`<@${interaction.member.id}> está solicitando membros para axuiliarem em **${titleObj.name}**.`)
         .addFields(
           {
             name: 'Cargo(s) requeridos',
@@ -88,7 +88,7 @@ module.exports = {
 
       recruitment.addFields({
         name: 'Contato',
-        value: contact ? contact : `Mande uma mensagem para **${interaction.member.displayName}** pelo privado do discord!`
+        value: contact || `Mande uma mensagem para **${interaction.member.displayName}** pelo privado do discord!`
       });
 
       await sendEmbeds({
