@@ -96,7 +96,8 @@ const messageAuthorFilter = (preText, member, postText = '!') => {
       case family[0]: person = 'pai'; break;
       case family[1]: person = 'tio Del'; break;
       case family[2]: person = 'tio Jeff'; break;
-      case family[3]: person = 'Cadu onii-san';
+      case family[3]: person = 'Cadu onii-san'; break;
+      case family[4]: person = 'Moon nee-san';
     }
   } else person = member.displayName;
 
