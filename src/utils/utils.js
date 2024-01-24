@@ -1,7 +1,8 @@
 const { GuildMember, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const { family, mood } = require('../config.json');
+const { mood } = require('../config.json');
 const scanTitles = require('../json/scanTitles.json');
 const emojis = require('../json/emojis.json');
+const family = require('../json/family.json');
 
 /**
  * 
@@ -90,16 +91,13 @@ const linkButtonsRow = links => {
  */
 const messageAuthorFilter = (preText, member, postText = '!') => {
   let person;
-  if (family.includes(member.id)) {
-    if (preText === 'Olá') preText = 'Oi';
-    switch (member.id) {
-      case family[0]: person = 'pai'; break;
-      case family[1]: person = 'tio Del'; break;
-      case family[2]: person = 'tio Jeff'; break;
-      case family[3]: person = 'Cadu onii-san'; break;
-      case family[4]: person = 'Moon nee-san';
+  for (let familyMember of family)
+    if (member.id === familyMember.id) {
+      if (preText === 'Olá') preText = 'Oi';
+      person = familyMember.name;
     }
-  } else person = member.displayName;
+
+  if (!person) person = member.displayName;
 
   return checkMood(`${preText}, **${person}**${postText}`, member);
 };

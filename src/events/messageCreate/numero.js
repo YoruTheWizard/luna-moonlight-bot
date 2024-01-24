@@ -1,5 +1,5 @@
 const { Client, Message } = require('discord.js');
-const { family } = require('../../config.json');
+const family = require('../../json/family.json');
 const emojis = require('../../json/emojis.json');
 const { getLunaMood } = require('../../utils/utils');
 
@@ -14,8 +14,10 @@ module.exports = (message, client) => {
   if ((msg.includes('luna') || msg.includes('luninha'))
     && (msg.includes('numero') || msg.includes('número') || msg.includes('zap'))) {
     const mood = getLunaMood().state;
-    let response;
-    if (family.includes(message.author.id))
+    let response, isFamily = false;
+    for (let familyMember of family)
+      if (message.author.id === familyMember.id) isFamily = true;
+    if (isFamily)
       response = mood === 'mad'
         ? `${emojis.puff} Você já tem meu número!`
         : '*Mas você já tem meu número...*';
