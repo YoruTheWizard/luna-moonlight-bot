@@ -34,10 +34,13 @@ module.exports = {
     }
 
     const mood = getLunaMood();
-    let rand = parseInt(Math.random() * adj.length);
+    let rand = parseInt(Math.random() * adj.length), isFamily = false;
 
-    const { family } = require('../../../config.json');
-    if (mood.state === 'happy' && family.includes(personId))
+    const family = require('../../../json/family.json');
+    for (let member of family)
+      if (interaction.member.id === member.id)
+        isFamily = true;
+    if (mood.state === 'happy' && isFamily)
       while (adj[rand].adj === 'nada' || adj[rand].bad)
         rand = parseInt(Math.random() * (adj.length));
 
