@@ -1,6 +1,6 @@
 const { Client, Message } = require('discord.js');
 const emojis = require('../../json/emojis.json');
-const { family } = require('../../config.json');
+const family = require('../../json/family.json');
 const { getLunaMood } = require('../../utils/utils');
 
 /**
@@ -27,7 +27,7 @@ module.exports = (message, client) => {
       response = emojis.luna;
   }
 
-  if (!response && (message.author.id === family[0])) {
+  if (!response && (message.author.id === family[0].id)) {
     // DADDY LOVES
     if (msg.includes('papai') && msg.includes('ama'))
       response = emojis.roll;
