@@ -1,8 +1,8 @@
 require('dotenv').config();
 const { Client, IntentsBitField } = require("discord.js");
-const { CommandHandler } = require('djs-commander');
+const { CommandKit } = require('commandkit');
 const path = require('path');
-const { testServer } = require('./config.json');
+const config = require('./config.json');
 
 const client = new Client({
   intents: [
@@ -18,11 +18,14 @@ const client = new Client({
   },
 });
 
-new CommandHandler({
+new CommandKit({
   client,
+  devGuildIds: [config.testServer],
+  devUserIds: config.devs,
   commandsPath: path.join(__dirname, 'commands'),
   eventsPath: path.join(__dirname, 'events'),
   validationsPath: path.join(__dirname, 'validations'),
+  bulkRegister: true
 });
 
 client.login(process.env.TOKEN);
