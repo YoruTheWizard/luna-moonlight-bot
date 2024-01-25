@@ -10,9 +10,10 @@ const changeLunaMood = require('../../utils/changeLunaMood');
  */
 module.exports = (message, client) => {
   if (message.author.bot) return;
-  const mood = getLunaMood().state;
+  const mood = getLunaMood();
   if (message.content.includes('🍩')) {
-    if (mood !== 'happy') changeLunaMood('happy', null);
+    if (mood.isPermanent) return;
+    if (mood.state !== 'happy') changeLunaMood('happy', null);
     message.reply(emojis.eating);
   }
 };

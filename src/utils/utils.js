@@ -106,7 +106,8 @@ const messageAuthorFilter = (preText, member, postText = '!') => {
  * 
  * @returns {{
  *  state: 'happy' | 'sad' | 'mad',
- *  trigger: string | null
+ *  trigger: string | null,
+ *  isPermanent: boolean
  * }}
  */
 const getLunaMood = () => {
