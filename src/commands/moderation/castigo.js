@@ -1,4 +1,4 @@
-const { Client, Interaction, ApplicationCommandOptionType, PermissionFlagsBits } = require("discord.js");
+const { Client, Interaction, ApplicationCommandOptionType } = require("discord.js");
 const ms = require('ms');
 const { errorLogger } = require('../../utils/utils');
 
@@ -28,8 +28,10 @@ module.exports = {
         type: ApplicationCommandOptionType.String
       }
     ],
-    permissionsRequired: [PermissionFlagsBits.MuteMembers],
-    botPermissions: [PermissionFlagsBits.MuteMembers],
+  },
+  options: {
+    userPermissions: ['MuteMembers'],
+    botPermissions: ['MuteMembers']
   },
 
   /**

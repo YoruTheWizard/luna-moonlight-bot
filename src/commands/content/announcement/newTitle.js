@@ -2,7 +2,6 @@ const { ApplicationCommandOptionType, Client, Interaction, EmbedBuilder } = requ
 const { linkListTreater, errorLogger, sendEmbeds, linkButtonsRow } = require('../../../utils/utils');
 
 module.exports = {
-  staffOnly: true,
   data: {
     name: 'novaobra',
     description: '[Staff] Manda um anúncio para todos no servidor sobre uma nova obra',
@@ -40,6 +39,9 @@ module.exports = {
         type: ApplicationCommandOptionType.String
       }
     ],
+  },
+  options: {
+    staffOnly: true
   },
 
   /**

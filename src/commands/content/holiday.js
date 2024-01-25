@@ -1,4 +1,4 @@
-const { ApplicationCommandOptionType, Client, Interaction, PermissionFlagsBits } = require('discord.js');
+const { ApplicationCommandOptionType, Client, Interaction } = require('discord.js');
 const holidayEmbedGenerator = require('../../utils/holidayEmbedGenerator');
 
 module.exports = {
@@ -19,7 +19,9 @@ module.exports = {
         ]
       }
     ],
-    permissionsRequired: [PermissionFlagsBits.Administrator],
+  },
+  options: {
+    userPermissions: ['Administrator']
   },
   /**
    * 

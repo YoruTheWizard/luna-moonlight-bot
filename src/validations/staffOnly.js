@@ -1,6 +1,6 @@
 const { testServer, staff } = require('../config.json');
 
-module.exports = (interaction, commandObj) => {
+module.exports = ({ interaction, commandObj }) => {
   if (interaction.guildId = testServer) return false;
   if (commandObj.staffOnly) if (!interaction.member.roles.cache.get(staff)) {
     interaction.reply({

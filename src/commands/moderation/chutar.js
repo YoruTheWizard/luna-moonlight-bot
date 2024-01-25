@@ -1,4 +1,4 @@
-const { ApplicationCommandOptionType, PermissionFlagsBits, Client } = require("discord.js");
+const { ApplicationCommandOptionType, Client } = require("discord.js");
 const { errorLogger } = require('../../utils/utils');
 
 module.exports = {
@@ -20,9 +20,11 @@ module.exports = {
         type: ApplicationCommandOptionType.String
       }
     ],
-    deleted: false,
-    permissionsRequired: [PermissionFlagsBits.BanMembers],
-    botPermissions: [PermissionFlagsBits.BanMembers],
+  },
+
+  options: {
+    userPermissions: ['KickMembers'],
+    botPermissions: ['KickMembers'],
   },
 
   /**
