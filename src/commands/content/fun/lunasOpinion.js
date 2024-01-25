@@ -1,18 +1,14 @@
-const { ApplicationCommandOptionType, Client, Interaction } = require('discord.js');
+const { SlashCommandBuilder, Client, Interaction } = require('discord.js');
 const { getLunaMood } = require('../../../utils/utils');
 
 module.exports = {
-  data: {
-    name: 'opiniaodaluna',
-    description: 'Manda aleatoriamente um adjetivo para alguém do servidor',
-    options: [
-      {
-        name: 'pessoa',
-        description: 'O objeto do adjetivo',
-        type: ApplicationCommandOptionType.Mentionable
-      }
-    ],
-  },
+  data: new SlashCommandBuilder()
+    .setName('opiniaodaluna')
+    .setDescription('Manda aleatoriamente um adjetivo para alguém do servidor')
+    .addUserOption(opt => opt
+      .setName('pessoa')
+      .setDescription('A pessoa para dar opinião')
+    ),
 
   /**
    * 

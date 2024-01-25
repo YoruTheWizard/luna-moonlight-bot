@@ -1,35 +1,29 @@
-const { Client, Interaction, ApplicationCommandOptionType, PermissionFlagsBits } = require("discord.js");
+const { SlashCommandBuilder, Client, Interaction } = require("discord.js");
 const ms = require('ms');
 const { errorLogger } = require('../../utils/utils');
 
 module.exports = {
-  data: {
-    name: 'castigo',
-    description: '[ADM] Silencia um membro por um tempo determinado',
-    devOnly: false,
-    testOnly: false,
-    deleted: false,
-    options: [
-      {
-        name: 'usuario-alvo',
-        description: 'O usuário a ser castigado',
-        required: true,
-        type: ApplicationCommandOptionType.Mentionable
-      },
-      {
-        name: 'duracao',
-        description: 'Duração do castigo (30m, 1h, 1 day).',
-        required: true,
-        type: ApplicationCommandOptionType.String
-      },
-      {
-        name: 'razao',
-        description: 'Razão do castigo',
-        type: ApplicationCommandOptionType.String
-      }
-    ],
-    permissionsRequired: [PermissionFlagsBits.MuteMembers],
-    botPermissions: [PermissionFlagsBits.MuteMembers],
+  data: new SlashCommandBuilder()
+    .setName('castigo')
+    .setDescription('[ADM] Silencia um membro por um tempo determinado')
+    .addUserOption(opt => opt
+      .setName('usuario-alvo')
+      .setDescription('O usuário a ser castigado')
+      .setRequired(true)
+    )
+    .addStringOption(opt => opt
+      .setName('duracao')
+      .setDescription('Duração do castigo')
+      .setRequired(true)
+    )
+    .addStringOption(opt => opt
+      .setName('razao')
+      .setDescription('Razao do castigo')
+    ),
+
+  options: {
+    userPermissions: ['MuteMembers'],
+    botPermissions: ['MuteMembers']
   },
 
   /**

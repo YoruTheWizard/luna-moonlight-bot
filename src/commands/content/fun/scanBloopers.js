@@ -1,10 +1,10 @@
-const { Client, Interaction } = require('discord.js');
+const { SlashCommandBuilder, Client, Interaction } = require('discord.js');
 
 module.exports = {
-  data: {
-    name: 'perolasdoservidor',
-    description: 'Manda aleatoriamente uma pérola do servidor',
-  },
+  data: new SlashCommandBuilder()
+    .setName('perolasdoservidor')
+    .setDescription('Manda aleatoriamente uma pérola do servidor'),
+
   /**
    * 
    * @param {{
