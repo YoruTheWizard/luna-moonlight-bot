@@ -1,26 +1,20 @@
-const { ApplicationCommandOptionType, Client } = require("discord.js");
+const { SlashCommandBuilder, Client } = require("discord.js");
 const { errorLogger } = require('../../utils/utils');
 
 module.exports = {
-  data: {
-    name: 'banir',
-    description: '[ADM] Bane um membro do servidor',
-    devOnly: false,
-    testOnly: false,
-    options: [
-      {
-        name: 'usuario-alvo',
-        description: 'O usuário a ser banido',
-        required: true,
-        type: ApplicationCommandOptionType.Mentionable,
-      },
-      {
-        name: 'razao',
-        description: 'A razão do banimento',
-        type: ApplicationCommandOptionType.String
-      }
-    ],
-  },
+  data: new SlashCommandBuilder()
+    .setName('banir')
+    .setDescription('[ADM] Bane um membro do servidor')
+    .addUserOption(opt => opt
+      .setName('usuario-alvo')
+      .setDescription('O usuário a ser banido')
+      .setRequired(true)
+    )
+    .addStringOption(opt => opt
+      .setName('razao')
+      .setDescription('A razão do banimento')
+    ),
+
   options: {
     userPermissions: ['BanMembers'],
     botPermissions: ['BanMembers']

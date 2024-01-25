@@ -1,26 +1,19 @@
-const { ApplicationCommandOptionType, Client } = require("discord.js");
+const { SlashCommandBuilder, Client } = require("discord.js");
 const { errorLogger } = require('../../utils/utils');
 
 module.exports = {
-  data: {
-    name: 'chutar',
-    description: '[ADM] Chuta um membro para fora do servidor',
-    devOnly: false,
-    testOnly: false,
-    options: [
-      {
-        name: 'usuario-alvo',
-        description: 'O usuário a ser chutado',
-        required: true,
-        type: ApplicationCommandOptionType.Mentionable,
-      },
-      {
-        name: 'razao',
-        description: 'A razão pela qual foi chutado',
-        type: ApplicationCommandOptionType.String
-      }
-    ],
-  },
+  data: new SlashCommandBuilder()
+    .setName('chutar')
+    .setDescription('[ADM] Chuta um membro para fora do servidor')
+    .addUserOption(opt => opt
+      .setName('usuario-alvo')
+      .setDescription('O usuário a ser chutado')
+      .setRequired(true)
+    )
+    .addStringOption(opt => opt
+      .setName('razao')
+      .setDescription('A razão pela qual foi chutado')
+    ),
 
   options: {
     userPermissions: ['KickMembers'],

@@ -1,28 +1,23 @@
-const { ApplicationCommandOptionType, Client, Interaction } = require('discord.js');
+const { SlashCommandBuilder, Client, Interaction } = require('discord.js');
 const holidayEmbedGenerator = require('../../utils/holidayEmbedGenerator');
 
 module.exports = {
-  data: {
-    name: 'feriado',
-    description: '[ADM] Envia uma mensagem para um feriado',
-    options: [
-      {
-        name: 'feriado',
-        description: 'O feriado para mandar a mensagem',
-        type: ApplicationCommandOptionType.String,
-        required: true,
-        choices: [
-          {
-            name: 'Ano novo',
-            value: 'newyear'
-          },
-        ]
-      }
-    ],
-  },
+  data: new SlashCommandBuilder()
+    .setName('feriado')
+    .setDescription('[ADM] Envia uma mensagem para um feriado')
+    .addStringOption(opt => opt
+      .setName('feriado')
+      .setDescription('O feriado para mandar a mensagem')
+      .addChoices(
+        { name: 'Ano novo', value: 'newyear' },
+      )
+      .setRequired(true)
+    ),
+
   options: {
     userPermissions: ['Administrator']
   },
+
   /**
    * 
    * @param {{
