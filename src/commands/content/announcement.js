@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, SlashCommandStringOption, Client, Interaction } = require("discord.js");
-const { getTitlesChoices } = require('../../../utils/utils');
-const announcement = require('../../../utils/announcementFunctions');
+const { getTitlesChoices } = require('../../utils/utils');
+const announcement = require('../../utils/announcementFunctions');
 
 /**
  * 
