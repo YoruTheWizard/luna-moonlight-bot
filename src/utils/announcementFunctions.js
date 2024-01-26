@@ -1,6 +1,8 @@
 const { Client, EmbedBuilder } = require("discord.js");
 const { linkListTreater, errorLogger, sendEmbeds, linkButtonsRow } = require('./utils');
 
+const wrongURLMsg = '*Opa!* Parece que você mandou os links do jeito errado!\nTente escrever os links no modelo: *"link.com Nome-do-link emoji"*.\nOs emojis não são obrigatórios.';
+
 /**
  * 
  * @param {{
@@ -13,19 +15,18 @@ const newRelease = async ({ interaction, client }) => {
   const titleName = interaction.options.get('obra').value,
     type = interaction.options.get('tipo').value,
     number = interaction.options.get('numero').value,
-    titleLinks = linkListTreater(interaction.options.get('link').value),
+    titleLinks = linkListTreater(interaction.options.get('links').value),
     volume = interaction.options.get('volume')?.value,
     titleDescription = interaction.options.get('descricao')?.value,
     image = interaction.options.getAttachment('imagem')
-      || interaction.options.get('imagem-link')?.value
-      || null;
+      || interaction.options.get('link-imagem')?.value;
 
   if (!titleLinks[0].name) {
-    interaction.reply({ content: '*Opa!* Parece que você mandou os links do jeito errado!\nTente escrever os links no modelo: *"link.com Nome-do-link emoji"*.\nOs emojis não são obrigatórios.', ephemeral: true });
+    interaction.reply({ content: wrongURLMsg, ephemeral: true });
     return;
   }
 
-  const scanTitles = require('../../../json/scanTitles.json');
+  const scanTitles = require('../json/scanTitles.json');
   let titleObj;
   for (let title of scanTitles)
     if (title.id === titleName) titleObj = title;
@@ -74,12 +75,12 @@ const newTitle = async ({ interaction, client }) => {
   const titleName = interaction.options.get('nome').value,
     titleLinks = linkListTreater(interaction.options.get('links').value),
     titleImage = interaction.options.getAttachment('imagem')
-      || interaction.options.get('url-imagem')?.value,
+      || interaction.options.get('link-imagem')?.value,
     sinopsys = interaction.options.get('sinopse')?.value,
     comment = interaction.options.get('comentario')?.value;
 
   if (!titleLinks[0].name) {
-    interaction.reply({ content: '*Opa!* Parece que você mandou os links do jeito errado!\nTente escrever os links no modelo: *"link.com Nome-do-link emoji"*.\nOs emojis não são obrigatórios.', ephemeral: true });
+    interaction.reply({ content: wrongURLMsg, ephemeral: true });
     return;
   }
 
@@ -133,7 +134,7 @@ const recruitment = async ({ interaction, client }) => {
     comment = interaction.options.get('comentario')?.value,
     contact = interaction.options.get('contato')?.value;
 
-  const scanTitles = require('../../../json/scanTitles.json');
+  const scanTitles = require('../json/scanTitles.json');
   let titleObj;
   for (let title of scanTitles)
     if (title.id === titleName) {
