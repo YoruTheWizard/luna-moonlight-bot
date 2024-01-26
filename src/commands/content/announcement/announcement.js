@@ -17,13 +17,17 @@ const getTitleOption = opt => {
   return opt;
 };
 
-const getSlashCommand = () => {
-  const cmd = new SlashCommandBuilder()
+module.exports = {
+  data: new SlashCommandBuilder()
     .setName('anuncio')
     .setDescription('[Staff] Manda um anúncio')
+
+    // "new" subcommand group
     .addSubcommandGroup(subGroup => subGroup
       .setName('novo')
       .setDescription('[Staff] Anúncio de lançamento')
+
+      // "release" subcommand
       .addSubcommand(sub => sub
         .setName('lancamento')
         .setDescription('[Staff] Envia um anúncio de novo lançamento')
@@ -55,7 +59,7 @@ const getSlashCommand = () => {
           .setName('descricao')
           .setDescription('Descrição do lançamento')
         )
-        .addStringOption(opt => opt
+        .addAttachmentOption(opt => opt
           .setName('imagem')
           .setDescription('Imagem do lançamento')
         )
@@ -64,6 +68,8 @@ const getSlashCommand = () => {
           .setDescription('Link da imagem do lançamento')
         )
       )
+
+      // "title" subcommand
       .addSubcommand(sub => sub
         .setName('obra')
         .setDescription('[Staff] Envia um anúncio de nova obra')
@@ -85,7 +91,7 @@ const getSlashCommand = () => {
           .setName('comentario')
           .setDescription('Algum comentário sobre a obra')
         )
-        .addStringOption(opt => opt
+        .addAttachmentOption(opt => opt
           .setName('imagem')
           .setDescription('Arquivo de uma imagem da obra')
         )
@@ -94,37 +100,33 @@ const getSlashCommand = () => {
           .setDescription('URL de uma imagem da obra')
         )
       )
-    );
+    )
 
-  cmd.addSubcommand(sub => sub
-    .setName('recrutamento')
-    .setDescription('[Staff] Manda um anúncio de recrutamento para todos no servidor')
-    .addStringOption(opt => getTitleOption(opt))
-    .addStringOption(opt => opt
-      .setName('cargos')
-      .setDescription('Cargos requisitados, separados por vírgula')
-      .setRequired(true)
-    )
-    .addStringOption(opt => opt
-      .setName('requisitos')
-      .setDescription('Requisitos para o recrutamento, separados por vírgula')
-      .setRequired(true)
-    )
-    .addStringOption(opt => opt
-      .setName('comentario')
-      .setDescription('Mais informações sobre o recrutamento')
-    )
-    .addStringOption(opt => opt
-      .setName('contato')
-      .setDescription('Onde falar com você')
-    )
-  );
+    // "recruitment" subcommand
+    .addSubcommand(sub => sub
+      .setName('recrutamento')
+      .setDescription('[Staff] Manda um anúncio de recrutamento para todos no servidor')
+      .addStringOption(opt => getTitleOption(opt))
+      .addStringOption(opt => opt
+        .setName('cargos')
+        .setDescription('Cargos requisitados, separados por vírgula')
+        .setRequired(true)
+      )
+      .addStringOption(opt => opt
+        .setName('requisitos')
+        .setDescription('Requisitos para o recrutamento, separados por vírgula')
+        .setRequired(true)
+      )
+      .addStringOption(opt => opt
+        .setName('comentario')
+        .setDescription('Mais informações sobre o recrutamento')
+      )
+      .addStringOption(opt => opt
+        .setName('contato')
+        .setDescription('Onde falar com você')
+      )
+    ),
 
-  return cmd;
-};
-
-module.exports = {
-  data: getSlashCommand(),
   options: {
     staffOnly: true
   },
@@ -139,9 +141,9 @@ module.exports = {
   run: async ({ interaction, client }) => {
     const subcommand = interaction.options.getSubcommand();
     switch (subcommand) {
-      case 'lancamento': announcement.newRelease(); break;
-      case 'obra': announcement.newTitle(); break;
-      case 'recrutamento': announcement.recruitment();
+      case 'lancamento': announcement.newRelease({ interaction, client }); break;
+      case 'obra': announcement.newTitle({ interaction, client }); break;
+      case 'recrutamento': announcement.recruitment({ interaction, client });
     }
   }
 };
