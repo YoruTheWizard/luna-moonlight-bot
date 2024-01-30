@@ -33,7 +33,20 @@ const disable = (server) => {
   return true;
 };
 
+/**
+ * 
+ * @param {string} server
+ * @returns {string | undefined}
+ */
+const info = (server) => {
+  for (let guild of config.welcomeOn)
+    if (server === guild.server)
+    return guild.channel;
+  return;
+}
+
 module.exports = {
   register,
-  disable
+  disable,
+  info
 };
