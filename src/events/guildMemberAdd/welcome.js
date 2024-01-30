@@ -8,7 +8,7 @@ const emojis = require(path.resolve(__dirname, '..', '..', 'json', 'emojis.json'
  * @param {Client} client 
  * @param {GuildMember} member 
  */
-module.exports = async (client, member) => {
+module.exports = async (member, client) => {
   try {
     if (!member.guild) return;
 

@@ -13,7 +13,7 @@ module.exports = {
    * }} param0
    */
   run: async ({ interaction, client }) => {
-    const bloopers = require('../../../json/scanBloopers.json');
+    const bloopers = require('../../json/scanBloopers.json');
     const rand = parseInt(Math.random() * bloopers.length);
     interaction.reply(bloopers[rand]);
   }

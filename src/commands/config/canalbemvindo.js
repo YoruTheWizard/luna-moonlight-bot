@@ -19,6 +19,10 @@ module.exports = {
     .addSubcommand(sub => sub
       .setName('desabilitar')
       .setDescription('[ADM] Desabilita mensagens de bem-vindo e adeus no servidor')
+    )
+    .addSubcommand(sub => sub
+      .setName('info')
+      .setDescription('[ADM] Mostra informações sobre mensagens de bem-vindo e adeus no servidor')
     ),
   options: {
     userPermissions: ['Administrator'],
@@ -36,6 +40,7 @@ module.exports = {
     const sub = interaction.options.getSubcommand();
     if (sub === 'configurar') welcomeConfig(interaction);
     else if (sub === 'desabilitar') welcomeDisable(interaction);
+    else if (sub === 'info') welcomeInfo(interaction);
   }
 };
 
@@ -46,7 +51,8 @@ module.exports = {
 const welcomeDisable = async (interaction) => {
   try {
     await interaction.deferReply();
-    const disabled = configWelcomeChannel.disable(interaction.guild.id);
+    const guild = interaction.member.guild;
+    const disabled = configWelcomeChannel.disable(guild.id);
     if (!disabled) {
       interaction.editReply({ content: 'As mensagens de bem-vindo não estão habilitadas neste servidor!', ephemeral: true });
       return;
@@ -64,8 +70,9 @@ const welcomeDisable = async (interaction) => {
  */
 const welcomeConfig = async (interaction) => {
   try {
+    const guild = interaction.member.guild;
     const newChannelId = interaction.options.get('canal').value;
-    const newChannel = await interaction.guild.channels.fetch(newChannelId);
+    const newChannel = await guild.channels.fetch(newChannelId);
     await interaction.deferReply();
 
     if (!newChannel) {
@@ -74,7 +81,7 @@ const welcomeConfig = async (interaction) => {
     }
 
     const channelRegistered = await configWelcomeChannel.register(
-      interaction.guild.id,
+      guild.id,
       newChannelId
     );
 
@@ -88,14 +95,31 @@ const welcomeConfig = async (interaction) => {
 
     if (!channelRegistered.serverExists) {
       await interaction.editReply(
-        `Mensagens de bem-vindo habilitadas para este servidor.\nCanal de mensagens de bem-vindo configurado para #${newChannel.name}.`
+        `Mensagens de bem-vindo habilitadas para este servidor.\nCanal de mensagens de bem-vindo configurado para ${newChannel}.`
       );
     }
 
     await interaction.editReply(
-      `Canal de mensagens de bem-vindo realocado para #${newChannel.name}.`
+      `Canal de mensagens de bem-vindo realocado para ${newChannel}.`
     );
   } catch (err) {
     errorLogger('mensagembemvindo configurar', err);
   }
+};
+
+/**
+ * 
+ * @param {Interaction} interaction
+ */
+const welcomeInfo = (interaction) => {
+  const guild = interaction.member.guild;
+  const channelId = configWelcomeChannel.info(guild.id);
+
+  if (!channelId) {
+    interaction.reply('As mensagens de bem-vindo não estão habilitadas neste servidor.');
+    return;
+  }
+
+  const channel = guild.channels.cache.get(channelId);
+  interaction.reply(`Servidor: ${guild.name}\nCanal: ${channel}`);
 };

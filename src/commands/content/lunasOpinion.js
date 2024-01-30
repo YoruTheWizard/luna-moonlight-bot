@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, Client, Interaction } = require('discord.js');
-const { getLunaMood } = require('../../../utils/utils');
+const { getLunaMood } = require('../../utils/utils');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -18,7 +18,7 @@ module.exports = {
    * }} param0  
    */
   run: async ({ interaction, client }) => {
-    const adj = require('../../../json/adjectives.json'),
+    const adj = require('../../json/adjectives.json'),
       personId = interaction.options.get('pessoa')?.value || interaction.member.id;
     const person = await interaction.guild.members.fetch(personId);
 
@@ -32,7 +32,7 @@ module.exports = {
     const mood = getLunaMood();
     let rand = parseInt(Math.random() * adj.length), isFamily = false;
 
-    const family = require('../../../json/family.json');
+    const family = require('../../json/family.json');
     for (let member of family)
       if (interaction.member.id === member.id)
         isFamily = true;

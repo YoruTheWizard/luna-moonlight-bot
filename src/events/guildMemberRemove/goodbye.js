@@ -7,7 +7,7 @@ const config = require(path.resolve(__dirname, '..', '..', 'config.json'));
  * @param {Client} client 
  * @param {GuildMember} member 
  */
-module.exports = async (client, member) => {
+module.exports = async (member, client) => {
   try {
     if (!member.guild) return;
 

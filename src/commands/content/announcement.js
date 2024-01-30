@@ -1,21 +1,6 @@
 const { SlashCommandBuilder, SlashCommandStringOption, Client, Interaction } = require("discord.js");
-const { getTitlesChoices } = require('../../../utils/utils');
-const announcement = require('../../../utils/announcementFunctions');
-
-/**
- * 
- * @param {SlashCommandStringOption} opt 
- * @returns SlashCommandStringOption
- */
-const getTitleOption = opt => {
-  opt.setName('obra')
-    .setDescription('Nome da obra')
-    .setRequired(true);
-  const titles = getTitlesChoices();
-  for (let title of titles)
-    opt.addChoices(title);
-  return opt;
-};
+const { setCommandTitleOption } = require('../../utils/utils');
+const announcement = require('../../utils/announcementFunctions');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -31,7 +16,7 @@ module.exports = {
       .addSubcommand(sub => sub
         .setName('lancamento')
         .setDescription('[Staff] Envia um anúncio de novo lançamento')
-        .addStringOption(opt => getTitleOption(opt))
+        .addStringOption(opt => setCommandTitleOption(opt))
         .addStringOption(opt => opt
           .setName('tipo')
           .setDescription('Tipo de lançamento')
@@ -106,7 +91,7 @@ module.exports = {
     .addSubcommand(sub => sub
       .setName('recrutamento')
       .setDescription('[Staff] Manda um anúncio de recrutamento para todos no servidor')
-      .addStringOption(opt => getTitleOption(opt))
+      .addStringOption(opt => setCommandTitleOption(opt))
       .addStringOption(opt => opt
         .setName('cargos')
         .setDescription('Cargos requisitados, separados por vírgula')
