@@ -97,6 +97,7 @@ const welcomeConfig = async (interaction) => {
       await interaction.editReply(
         `Mensagens de bem-vindo habilitadas para este servidor.\nCanal de mensagens de bem-vindo configurado para ${newChannel}.`
       );
+      return;
     }
 
     await interaction.editReply(
