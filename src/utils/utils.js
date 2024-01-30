@@ -3,6 +3,7 @@ const { mood } = require('../config.json');
 const scanTitles = require('../json/scanTitles.json');
 const emojis = require('../json/emojis.json');
 const family = require('../json/family.json');
+const pdfLinks = require('../json/titlePdfLinks.json');
 
 /**
  * 
@@ -14,6 +15,33 @@ const getTitlesChoices = () => {
     choices.push({ name: title.name, value: title.id });
   }
   return choices;
+};
+
+/**
+ * 
+ * @param {SlashCommandStringOption} opt
+ * @returns {SlashCommandStringOption}
+ */
+const setCommandTitleOption = opt => {
+  opt.setName('obra')
+    .setDescription('Nome da obra')
+    .setRequired(true);
+  const titles = getTitlesChoices();
+  for (let title of titles)
+    opt.addChoices(title);
+  return opt;
+};
+
+const setPDFCommandTitleOption = opt => {
+  opt.setName('obra')
+    .setDescription('Nome da obra')
+    .setRequired(true);
+  for (let title of pdfLinks)
+    opt.addChoices({
+      name: title.titleName,
+      value: title.titleId
+    });
+  return opt;
 };
 
 /**
@@ -171,6 +199,8 @@ const errorLogger = (commandName, errMessage) => {
 
 module.exports = {
   getTitlesChoices,
+  setCommandTitleOption,
+  setPDFCommandTitleOption,
   messageTreater,
   listTreater,
   linkListTreater,
