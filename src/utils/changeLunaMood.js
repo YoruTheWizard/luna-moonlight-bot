@@ -25,6 +25,7 @@ module.exports = (newMood, newTrigger, newChangeFlag) => {
   }
 
   config.mood.state = newMood;
+  config.mood.isPermanent = newChangeFlag;
   if (newTrigger) {
     config.mood.trigger = newTrigger.id;
     response = `Humor alterado para **${respMood}**${newChangeFlag ? ' permanentemente' : ''}. Pessoa-gatilho: **${newTrigger.username}**`;
