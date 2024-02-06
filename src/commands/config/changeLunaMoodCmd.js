@@ -41,7 +41,7 @@ module.exports = {
       newMoodTrigger = interaction.options.get('pessoa-gatilho')?.value,
       permanent = interaction.options.get('permanente')?.value;
 
-    const triggerUser = interaction.guild.members.cache.get(newMoodTrigger);
+    const triggerUser = client.users.cache.get(newMoodTrigger);
     if (newMoodTrigger && !triggerUser) {
       interaction.reply({ content: 'Esse usuário não existe!', ephemeral: true });
       return;

@@ -1,5 +1,5 @@
 const { Client, EmbedBuilder } = require("discord.js");
-const { linkListTreater, errorLogger, sendEmbeds, linkButtonsRow } = require('./utils');
+const { linkListTreater, linkButtonsRow, listTreater, sendEmbeds, errorLogger } = require('./utils');
 
 const wrongURLMsg = '*Opa!* Parece que você mandou os links do jeito errado!\nTente escrever os links no modelo: *"link.com Nome-do-link emoji"*.\nOs emojis não são obrigatórios.';
 
@@ -165,9 +165,9 @@ const recruitment = async ({ interaction, client }) => {
       );
 
     if (comment)
-      recruitment.addFields({ name: 'Mais informações', value: comment });
+      recruitmentEmbed.addFields({ name: 'Mais informações', value: comment });
 
-    recruitment.addFields({
+    recruitmentEmbed.addFields({
       name: 'Contato',
       value: contact || `Mande uma mensagem para **${interaction.member.displayName}** pelo privado do discord!`
     });
