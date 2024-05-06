@@ -1,17 +1,15 @@
-const { Client, EmbedBuilder } = require("discord.js");
+const { Client, EmbedBuilder, Interaction, CacheType } = require("discord.js");
 const { linkListTreater, linkButtonsRow, listTreater, sendEmbeds, errorLogger } = require('./utils');
 
 const wrongURLMsg = '*Opa!* Parece que você mandou os links do jeito errado!\nTente escrever os links no modelo: *"link.com Nome-do-link emoji"*.\nOs emojis não são obrigatórios.';
 
 /**
  * 
- * @param {{
- *  interaction: import("discord.js").Interaction,
- *  client: Client
- * }} param0 
+ * @param {Interaction<CacheType>} interaction
+ * 
  * @returns {Promise<void>}
  */
-const newRelease = async ({ interaction, client }) => {
+const newRelease = async (interaction) => {
   const titleName = interaction.options.get('obra').value,
     type = interaction.options.get('tipo').value,
     number = interaction.options.get('numero').value,
@@ -50,13 +48,15 @@ const newRelease = async ({ interaction, client }) => {
     const role = interaction.channel.guild.roles.cache.get(titleObj.fanRole);
     const buttons = linkButtonsRow(titleLinks);
 
-    await sendEmbeds({
+    await sendEmbeds(
       interaction,
-      embeds: [newReleaseEmbed],
-      ephemeral: true,
-      role: role ? role : '@deleted-role',
-      rows: [buttons]
-    });
+      {
+        embeds: [newReleaseEmbed],
+        ephemeral: true,
+        role: role ? role : '@deleted-role',
+        rows: [buttons]
+      }
+    );
 
   } catch (err) {
     errorLogger('novolancamento', err);
@@ -65,13 +65,11 @@ const newRelease = async ({ interaction, client }) => {
 
 /**
  * 
- * @param {{
- *  interaction: Interaction,
- *  client: Client
- * }} param0 
+ * @param {Interaction<CacheType>} interaction
+ * 
  * @returns {Promise<void>}
  */
-const newTitle = async ({ interaction, client }) => {
+const newTitle = async (interaction) => {
   const titleName = interaction.options.get('nome').value,
     titleLinks = linkListTreater(interaction.options.get('links').value),
     titleImage = interaction.options.getAttachment('imagem')
@@ -106,12 +104,14 @@ const newTitle = async ({ interaction, client }) => {
 
     const buttons = linkButtonsRow(titleLinks);
 
-    await sendEmbeds({
+    await sendEmbeds(
       interaction,
-      embeds: [newTitle],
-      ephemeral: true,
-      rows: [buttons]
-    });
+      {
+        embeds: [newTitle],
+        ephemeral: true,
+        rows: [buttons]
+      }
+    );
     // interaction.channel.send({ content: '@everyone', embeds: [newTitle] });
     // interaction.reply({ content: 'Mensagem enviada!', ephemeral: true });
   } catch (err) {
@@ -121,13 +121,11 @@ const newTitle = async ({ interaction, client }) => {
 
 /**
  * 
- * @param {{
- *  interaction: Interaction,
- *  client: Client
- * }} param0 
+ * @param {Interaction<CacheType>} interaction
+ * 
  * @returns {Promise<void>}
  */
-const recruitment = async ({ interaction, client }) => {
+const recruitment = async (interaction) => {
   const titleName = interaction.options.get('obra').value,
     roles = listTreater(interaction.options.get('cargos').value),
     requirements = listTreater(interaction.options.get('requisitos').value),
@@ -172,11 +170,13 @@ const recruitment = async ({ interaction, client }) => {
       value: contact || `Mande uma mensagem para **${interaction.member.displayName}** pelo privado do discord!`
     });
 
-    await sendEmbeds({
+    await sendEmbeds(
       interaction,
-      embeds: [recruitmentEmbed],
-      ephemeral: true
-    });
+      {
+        embeds: [recruitmentEmbed],
+        ephemeral: true
+      }
+    );
     // interaction.channel.send({ content: '@everyone', embeds: [recruitment] });
     // interaction.reply({ content: 'Mensagem enviada!', ephemeral: true });
   } catch (err) {
