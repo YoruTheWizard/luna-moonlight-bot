@@ -126,9 +126,9 @@ module.exports = {
   run: async ({ interaction, client }) => {
     const subcommand = interaction.options.getSubcommand();
     switch (subcommand) {
-      case 'lancamento': announcement.newRelease({ interaction, client }); break;
-      case 'obra': announcement.newTitle({ interaction, client }); break;
-      case 'recrutamento': announcement.recruitment({ interaction, client });
+      case 'lancamento': announcement.newRelease(interaction); break;
+      case 'obra': announcement.newTitle(interaction); break;
+      case 'recrutamento': announcement.recruitment(interaction);
     }
   }
 };

@@ -1,4 +1,4 @@
-const { GuildMember, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { GuildMember, ActionRowBuilder, ButtonBuilder, ButtonStyle, Role, Interaction, CacheType } = require('discord.js');
 const { mood } = require('../config.json');
 const scanTitles = require('../json/scanTitles.json');
 const emojis = require('../json/emojis.json');
@@ -172,15 +172,17 @@ const checkMood = (text, member) => {
 
 /**
  * 
+ * @param {Interaction<CacheType>} interaction
  * @param {{
- *  interaction: import('discord.js').Interaction,
  *  embeds: EmbedBuilder[],
  *  ephemeral: boolean,
  *  rows?: ActionRowBuilder[],
- *  role?: Role | "@everyone",
- * }} @param0
+ *  role?: Role | "@deleted-role" | "@everyone",
+ * }} options
+ * 
+ * @returns {Promise<void>}
  */
-const sendEmbeds = async ({ interaction, embeds, ephemeral, role, rows }) => {
+const sendEmbeds = async (interaction, { embeds, ephemeral, role, rows }) => {
   if (!role) role = '@everyone';
   if (ephemeral) {
     await interaction.channel.send({ content: `${role}`, embeds, components: rows });
